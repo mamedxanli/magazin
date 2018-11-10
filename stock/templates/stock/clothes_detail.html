@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Товары</title>
+{% endblock %}
+
+{% block main %}
+<div class="col-lg-8 col-lg-offset-2">
+    <div class="contact-box center-version">
+        <a href="{{ object.get_absolute_url }}">
+            <h5 class="m-b-xs">Товары</h5>
+            <h2 class="m-b-xs"><strong>{{ object.code }}</strong></h2>
+            <p>Изменить</p>
+        </a>
+        <div class="ibox-content float-e-margins text-center">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 class="m-b-xs"><i class="icon-custom fa fa-female"></i></h2>
+                                <h3 class="m-b-xs"><span>Код: </span><span class="text-navy">{{ object.code }}</span></h3>
+                                <h3 class="m-b-xs"><span>Бренд: </span><span class="text-navy">{{ object.brand }}</span></h3>
+                                <h3 class="m-b-xs"><span>Категория: </span><span class="text-navy">{{ object.category }}</span></h3>
+                                <h3 class="m-b-xs"><span>Описание: </span><span class="text-navy">{{ object.description }}</span></h3>
+                                <h3 class="m-b-xs"><span>Закупочная цена: </span><span class="text-navy">{{ object.purchase_price }}</span></h3>
+                                <h3 class="m-b-xs"><span>Цена продажи: </span><span class="text-navy">{{ object.selling_price }}</span></h3>
+                                <div class="hr-line-dashed"></div>
+                                <h1 class="m-b-xs"><i class="icon-custom fa fa-cogs"></i></h1>
+                                <h3 class="m-b-xs"><span>Размер: </span><span class="text-navy">{{ object.size }}</span></h3>
+                                <h3 class="m-b-xs"><span>Количество: </span><span class="text-navy">{{ object.quantity }}</span></h3>
+                                <h3 class="m-b-xs">Продано: </span><span class="text-navy">{{ object.sold|yesno:"Да,Нет" }}</span></h3>
+                            </td>
+                            <td>
+                                <br>
+                                    <h3 class="m-b-xs"><span>Изображение</span><span class="text-navy"></h3>
+                                    <a href="{{ object.image.url }}" download><img src='{{ object.image.url}}' height='50' width='50' border='1'/></a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+    </div>
+</div>
+{% endblock %}
+
