@@ -21,6 +21,7 @@ class Clothes(models.Model):
     description = models.CharField("Описание", max_length=100, default=None)
     purchase_price = models.DecimalField("Закупочная цена", decimal_places=2, max_digits=5)
     selling_price = models.DecimalField("Цена продажи", decimal_places=2, max_digits=5)
+    discount = models.DecimalField("Скидка", decimail_places=2, max_digits=5)
     size = models.CharField("Размер", max_length=5, default=None)
     quantity = models.IntegerField("Количество")
     image = models.FileField("Фото",blank=True, default=None, upload_to=save_directory_path)
