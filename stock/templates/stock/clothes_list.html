@@ -21,7 +21,6 @@
                                     <th>Код</th>
                                     <th>Бренд</th>
                                     <th>Продано</th>
-                                    <th>Закупочная цена</th>
                                     <th>Цена продажи</th>
                                     
                                 </tr>
@@ -32,7 +31,6 @@
                                     <td><a href="{{ clothes.get_detail }}">{{ clothes.code }}</a></td>
                                     <td>{{ clothes.brand }}</td>
                                     <td>{{ clothes.sold|yesno:"Да,Нет" }}</td>
-                                    <td>{{ clothes.purchase_price }}</td>
                                     <td>{{ clothes.selling_price }}</td>
                                     <td class="text-center"><a class="btn btn-primary btn-sm"href="{{ clothes.get_absolute_url }}">Изменить</a><a class="btn btn-danger btn-sm" href="{{ clothes.get_delete }}">Удалить</a></td>
                                 </tr>
