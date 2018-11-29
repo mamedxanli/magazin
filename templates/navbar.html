@@ -24,12 +24,22 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'clothes_create' %}">Добавить товар</a></li>
                 </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{% url 'money_create' %}">Внести выручку</a></li>
+                </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Товар</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'clothes_create' %}">Добавить товар</a></li>
                     <li><a href="{% url 'clothes_list' %}">Список товаров / Изменить</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Выручка</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{% url 'money_create' %}">Добавить выручку</a></li>
+                    <li><a href="{% url 'money_list' %}">Список выручки / Изменить</a></li>
                 </ul>
             </li>
             
