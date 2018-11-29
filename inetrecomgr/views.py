@@ -7,6 +7,7 @@ from itertools import chain
 
 # Import from our apps
 from stock.models import Clothes
+from money.models import Money
 
 class HomePage(generic.TemplateView):
     template_name = "inetrecomgr/index.html"

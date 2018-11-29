@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from money.models import Money
+from stock.models import Clothes
+
+admin.site.register(Money)
+admin.site.register(Clothes)

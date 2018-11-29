@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Our apps
     'stock',
+    'money',
     #Search
     'haystack',
     #Files cleanup

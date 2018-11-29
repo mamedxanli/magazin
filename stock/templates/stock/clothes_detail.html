@@ -32,11 +32,13 @@
                                 <h3 class="m-b-xs"><span>Количество: </span><span class="text-navy">{{ object.quantity }}</span></h3>
                                 <h3 class="m-b-xs">Продано: </span><span class="text-navy">{{ object.sold|yesno:"Да,Нет" }}</span></h3>
                             </td>
-                            <td>
-                                <br>
+                            {% if object.image %}
+                                <td>
+                                    <br> 
                                     <h3 class="m-b-xs"><span>Изображение</span><span class="text-navy"></h3>
                                     <a href="{{ object.image.url }}" download><img src='{{ object.image.url}}' height='50' width='50' border='1'/></a>
                                 </td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 </table>
