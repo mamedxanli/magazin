@@ -26,11 +26,13 @@
                                 <h3 class="m-b-xs"><span>Описание: </span><span class="text-navy">{{ object.description }}</span></h3>
                                 <h3 class="m-b-xs"><span>Закупочная цена: </span><span class="text-navy">{{ object.purchase_price }}</span></h3>
                                 <h3 class="m-b-xs"><span>Цена продажи: </span><span class="text-navy">{{ object.selling_price }}</span></h3>
+                                <h3 class="m-b-xs"><span>Скидка: </span><span class="text-navy">{{ object.discount }}</span></h3>
                                 <div class="hr-line-dashed"></div>
                                 <h1 class="m-b-xs"><i class="icon-custom fa fa-cogs"></i></h1>
                                 <h3 class="m-b-xs"><span>Размер: </span><span class="text-navy">{{ object.size }}</span></h3>
                                 <h3 class="m-b-xs"><span>Количество: </span><span class="text-navy">{{ object.quantity }}</span></h3>
                                 <h3 class="m-b-xs">Продано: </span><span class="text-navy">{{ object.sold|yesno:"Да,Нет" }}</span></h3>
+                                <h3 class="m-b-xs">В долг: </span><span class="text-navy">{{ object.debt|yesno:"Да,Нет" }}</span></h3>
                             </td>
                             {% if object.image %}
                                 <td>
