@@ -28,6 +28,7 @@ class Clothes(models.Model):
     #image2 = models.FileField("Picture 2",blank=True, default=None, upload_to=save_directory_path)
     #somefile = models.FileField("Some file",blank=True, default=None, upload_to=save_directory_path)
     sold = models.BooleanField("Продано", default=False)
+    debt = models.BooleanField("В долг", default=False)
 
     def __str__(self):
         return " {} ".format(self.code)

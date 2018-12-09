@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Клиенты</title>
+{% endblock %}
+
+{% block main %}
+<div class="col-lg-8 col-lg-offset-2">
+    <div class="contact-box center-version">
+        <a href="{{ object.get_absolute_url }}">
+            <h5 class="m-b-xs">Клиенты</h5>
+            <h2 class="m-b-xs"><strong>{{ object.name }}</strong></h2>
+            <p>Изменить</p>
+        </a>
+        <div class="ibox-content float-e-margins text-center">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 class="m-b-xs"><i class="icon-custom fa fa-female"></i></h2>
+                                <h3 class="m-b-xs"><span>Имя: </span><span class="text-navy">{{ object.name }}</span></h3>
+                                <h3 class="m-b-xs"><span>Телефон: </span><span class="text-navy">{{ object.phone }}</span></h3>
+                                <h3 class="m-b-xs"><span>Электронный адрес: </span><span class="text-navy">{{ object.email }}</span></h3>
+                                <h3 class="m-b-xs"><span>Долг: </span><span class="text-navy">{{ object.debt }}</span></h3>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+    </div>
+</div>
+{% endblock %}
+

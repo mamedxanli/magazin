@@ -44,6 +44,7 @@ urlpatterns = [
     #url(r'^company/', include('company.urls')),
     url(r'^clothes/', include('stock.urls')),
     url(r'^money/', include('money.urls')),
+    url(r'^client/', include('client.urls')),
     #url(r'^vserver/', include('vserver.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
