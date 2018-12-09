@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Main Page | Asset Manager</title>
+    <title>Main Page | Shop</title>
 {% endblock %}
 
 {% block main %}
@@ -12,19 +12,19 @@
             <div class="col-lg-offset-2 col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Network devices</h5>
+                        <h5>Товары</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-xs-7 content">
-                                <h1 class="no-margins text-navy">{{ netdevs_active.count }}</h1>
+                                <h1 class="no-margins text-navy">{{ clothes_stock.count }}</h1>
                                 <i class="fa fa-level-up font-bold text-navy"></i>
-                                <small>Active devices</small>
+                                <small>На складе</small>
                             </div>
                             <div class="col-xs-3 content">
-                                <h1 class="no-margins text-warning">{{ netdevs_decomissioned.count }}</h1>
-                                <i class="fa fa-level-down font-bold text-warning"></i>
-                                <small>Decomissioned devices</small>
+                                <h1 class="no-margins text-warning">{{ clothes_sold.count }}</h1>
+                                <i class="fa fa-level-up font-bold text-warning"></i>
+                                <small>Продано</small>
                             </div>
                         </div>
                     </div>
@@ -36,19 +36,19 @@
             <div class="col-lg-offset-2 col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Servers</h5>
+                        <h5>Выручка</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-xs-7 content">
                                 <h1 class="no-margins text-navy">{{ servers_active.count }}</h1>
                                 <i class="fa fa-level-up font-bold text-navy"></i>
-                                <small>Active servers</small>
+                                <small>За месяц</small>
                             </div>
                             <div class="col-xs-3 content">
                                 <h1 class="no-margins text-warning">{{ servers_decomissioned.count }}</h1>
-                                <i class="fa fa-level-down font-bold text-warning"></i>
-                                <small>Decomissioned servers</small>
+                                <i class="fa fa-level-up font-bold text-warning"></i>
+                                <small>За неделю</small>
                             </div>
                         </div>
                     </div>
@@ -60,19 +60,14 @@
             <div class="col-lg-offset-2 col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>VServers</h5>
+                        <h5>Долги</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-xs-7 content">
-                                <h1 class="no-margins text-navy">{{ vservers_active.count }}</h1>
-                                <i class="fa fa-level-up font-bold text-navy"></i>
-                                <small>Active vservers</small>
-                            </div>
                             <div class="col-xs-3 content">
                                 <h1 class="no-margins text-warning">{{ vservers_decomissioned.count }}</h1>
                                 <i class="fa fa-level-down font-bold text-warning"></i>
-                                <small>Decomissioned vservers</small>
+                                <small>Общий долг в магазин</small>
                             </div>
                         </div>
                     </div>
@@ -84,20 +79,15 @@
                 <div class="col-lg-offset-2 col-lg-8">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Companies and Organizations</h5>
+                            <h5>Клиенты</h5>
                         </div>
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-xs-7 content">
                                     <h1 class="no-margins text-navy">{{ companies_active.count }}</h1>
                                     <i class="fa fa-level-up font-bold text-navy"></i>
-                                    <small>Active</small>
-                                </div>
-                                <div class="col-xs-3 content">
-                                    <h1 class="no-margins text-warning">{{ companies_decomissioned.count }}</h1>
-                                    <i class="fa fa-level-down font-bold text-warning"></i>
-                                    <small>Inactive</small>
-                                </div>
+                                    <small>Число клиентов</small>
+                                </div>                             
                             </div>
                         </div>
                     </div>
