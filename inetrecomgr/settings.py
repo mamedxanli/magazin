@@ -1,1 +1,1 @@
-settings.prod.magazin
+settings.dev

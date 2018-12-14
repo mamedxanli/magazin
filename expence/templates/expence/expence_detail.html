@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Расход</title>
+{% endblock %}
+
+{% block main %}
+<div class="col-lg-8 col-lg-offset-2">
+    <div class="contact-box center-version">
+        <a href="{{ object.get_absolute_url }}">
+            <h5 class="m-b-xs">Расход</h5>
+            <h2 class="m-b-xs"><strong>{{ object.date }}</strong></h2>
+            <p>Изменить</p>
+        </a>
+        <div class="ibox-content float-e-margins text-center">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h1 class="m-b-xs"><i class="icon-custom fa fa-female"></i></h2>
+                                <h3 class="m-b-xs"><span>Дата: </span><span class="text-navy">{{ object.date }}</span></h3>
+                                <h3 class="m-b-xs"><span>Сумма: </span><span class="text-navy">{{ object.amount }}</span></h3>
+                                </td>
+                            <td>
+                        </tr>
+                    </tbody>
+                </table>
+    </div>
+</div>
+{% endblock %}
+

@@ -28,6 +28,9 @@
                     <li><a href="{% url 'money_create' %}">Добавить выручку</a></li>
                 </ul>
                 <ul class="nav nav-second-level collapse">
+                    <li><a href="{% url 'expence_create' %}">Добавить расход</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'client_create' %}">Добавить клиента</a></li>
                 </ul>
             </li>
@@ -43,6 +46,13 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'money_create' %}">Добавить выручку</a></li>
                     <li><a href="{% url 'money_list' %}">Список выручки / Изменить</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Расход</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="{% url 'expence_create' %}">Добавить расход</a></li>
+                    <li><a href="{% url 'expence_list' %}">Список расходов / Изменить</a></li>
                 </ul>
             </li>
             <li>
