@@ -61,6 +61,12 @@ class ClothesList(generic.ListView):
     template_name = 'stock/clothes_list.html'
     paginate_by = 50
 
+    def get_queryset(self):
+        qs = Clothes.objects.all().order_by('code')
+        return super(ClothesList, self).get_queryset()
+    
+
+
 
 class ClothesDetail(generic.DetailView):
     """
