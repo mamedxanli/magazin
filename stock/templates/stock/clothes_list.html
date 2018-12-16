@@ -23,6 +23,7 @@
                                     <th>Продано</th>
                                     <th>В долг</th>
                                     <th>Цена продажи</th>
+                                    <th>Размер</th>
                                     <th>Изображение</th>
                                     
                                 </tr>
@@ -35,6 +36,7 @@
                                     <td>{{ clothes.sold|yesno:"Да,Нет" }}</td>
                                     <td>{{ clothes.debt|yesno:"Да,Нет" }}</td>
                                     <td>{{ clothes.selling_price }}</td>
+                                    <td>{{ clothes.size }}</td>
                                     {% if clothes.image %}
                                         <td>
                                         <a href="{{ clothes.image.url }}" download><img src='{{ clothes.image.url}}' height='75' width='75' border='1'/></a>
