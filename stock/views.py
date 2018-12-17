@@ -59,6 +59,7 @@ class ClothesList(generic.ListView):
     """
     model = Clothes
     template_name = 'stock/clothes_list.html'
+    ordering = ['code']
     paginate_by = 50
 
     def get_queryset(self):
