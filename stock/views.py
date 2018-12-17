@@ -62,9 +62,11 @@ class ClothesList(generic.ListView):
     ordering = ['code']
     paginate_by = 50
 
+    """
     def get_queryset(self):
         qs = Clothes.objects.all().order_by('code')
         return super(ClothesList, self).get_queryset()
+    """
     
 
 
