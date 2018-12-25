@@ -21,7 +21,6 @@
                                     <th>Код</th>
                                     <th>Бренд</th>
                                     <th>Продано</th>
-                                    <th>В долг</th>
                                     <th>Цена продажи</th>
                                     <th>Размер</th>
                                     <th>Изображение</th>
@@ -34,7 +33,6 @@
                                     <td><a href="{{ clothes.get_detail }}">{{ clothes.code }}</a></td>
                                     <td>{{ clothes.brand }}</td>
                                     <td>{{ clothes.sold|yesno:"Да,Нет" }}</td>
-                                    <td>{{ clothes.debt|yesno:"Да,Нет" }}</td>
                                     <td>{{ clothes.selling_price }}</td>
                                     <td>{{ clothes.size }}</td>
                                     {% if clothes.image %}
