@@ -19,7 +19,8 @@
                             <thead>
                                 <tr>
                                     <th>Число</th>
-                                    <th>Сумма</th>                                    
+                                    <th>Сумма</th>
+                                    <th>Назначение</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,6 +28,7 @@
                                 <tr class="row-cursor" title="Нажмите для подробной информации">
                                     <td><a href="{{ expence.get_detail }}">{{ expence.date }}</a></td>
                                     <td>{{ expence.amount }}</td>
+                                    <td>{{ expence.purpose }}</td>
                                     <td class="text-center"><a class="btn btn-primary btn-sm"href="{{ expence.get_absolute_url }}">Изменить</a><a class="btn btn-danger btn-sm" href="{{ expence.get_delete }}">Удалить</a></td>
                                 </tr>
                                 {% endfor %}
