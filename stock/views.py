@@ -59,20 +59,20 @@ class ClothesList(generic.ListView):
     """
     model = Clothes
     template_name = 'stock/clothes_list.html'
-    ordering = ['code']
     paginate_by = 50
 
     def get_queryset(self):
-        return Clothes.objects.filter(sold=False)
+        qs = Clothes.objects.filter(sold=False)
+        return qs.order_by('code')
 
 class ClothesSoldList(generic.ListView):
     model = Clothes
     template_name = 'stock/clothes_sold_list.html'
-    ordering = ['code']
     paginate_by = 50
 
     def get_queryset(self):
-        return Clothes.objects.filter(sold=True)
+        qs = Clothes.objects.filter(sold=True)
+        return qs.order_by('code')
 
 
 class ClothesDetail(generic.DetailView):
