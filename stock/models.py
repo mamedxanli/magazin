@@ -1,6 +1,7 @@
 #Django native imports
 from django.db import models
 from django.urls import reverse, reverse_lazy
+from django.db.models import Sum
 
 # Import from our apps
 
@@ -57,6 +58,13 @@ class Clothes(models.Model):
         """
         class_name = "Clothes"
         return class_name
+    
+    def get_amount_in_stock(self):
+            amount = 0
+            qs = Clothes.objects.filter(sold='False')
+            for item in qs:
+                amount = amount + item.selling_price*item.quantity
+            return amount
 
     class Meta:
         verbose_name_plural = "Clothes"
