@@ -19,10 +19,10 @@ class HomePage(generic.TemplateView):
         using the chain and returned to the view
         """
         context = super().get_context_data(**kwargs)
-        context['clothes_stock']  = Clothes.objects.filter(sold=False)
+        #context['clothes_stock']  = Clothes.objects.filter(sold=False)
         context['clothes_sold']  = Clothes.objects.filter(sold=True)
         context['clothes_stock_amount'] = Clothes.get_amount_in_stock(self)
-        
+        context['clothes_stock']  = Clothes.get_number_of_items_in_stock(self)
         return context
 
 """

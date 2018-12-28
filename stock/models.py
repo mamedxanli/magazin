@@ -60,11 +60,19 @@ class Clothes(models.Model):
         return class_name
     
     def get_amount_in_stock(self):
-            amount = 0
-            qs = Clothes.objects.filter(sold='False')
-            for item in qs:
-                amount = amount + item.selling_price*item.quantity
-            return amount
+        amount = 0
+        qs = Clothes.objects.filter(sold='False')
+        for item in qs:
+            amount = amount + item.selling_price*item.quantity
+        return amount
+
+    def get_number_of_items_in_stock(self):
+        number = 0
+        qs = Clothes.objects.filter(sold='False')
+        for item in qs:
+            number = number + item.quantity
+        return number 
+
 
     class Meta:
         verbose_name_plural = "Clothes"
