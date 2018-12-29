@@ -1,0 +1,1963 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: client_client; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE client_client (
+    id integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    created_by character varying(100) NOT NULL,
+    name character varying(30) NOT NULL,
+    phone character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    debt numeric(5,2) NOT NULL
+);
+
+
+ALTER TABLE public.client_client OWNER TO postgres;
+
+--
+-- Name: client_client_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE client_client_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.client_client_id_seq OWNER TO postgres;
+
+--
+-- Name: client_client_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE client_client_id_seq OWNED BY client_client.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: expence_expence; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE expence_expence (
+    id integer NOT NULL,
+    date timestamp with time zone NOT NULL,
+    amount numeric(5,2) NOT NULL,
+    purpose character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.expence_expence OWNER TO postgres;
+
+--
+-- Name: expence_expence_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE expence_expence_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.expence_expence_id_seq OWNER TO postgres;
+
+--
+-- Name: expence_expence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE expence_expence_id_seq OWNED BY expence_expence.id;
+
+
+--
+-- Name: money_money; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE money_money (
+    id integer NOT NULL,
+    date timestamp with time zone NOT NULL,
+    amount numeric(5,2) NOT NULL
+);
+
+
+ALTER TABLE public.money_money OWNER TO postgres;
+
+--
+-- Name: money_money_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE money_money_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.money_money_id_seq OWNER TO postgres;
+
+--
+-- Name: money_money_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE money_money_id_seq OWNED BY money_money.id;
+
+
+--
+-- Name: stock_clothes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE stock_clothes (
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    created_by character varying(100) NOT NULL,
+    code integer NOT NULL,
+    brand character varying(20) NOT NULL,
+    category character varying(30) NOT NULL,
+    description character varying(100) NOT NULL,
+    purchase_price numeric(5,2) NOT NULL,
+    selling_price numeric(5,2) NOT NULL,
+    discount numeric(5,2) NOT NULL,
+    size character varying(5) NOT NULL,
+    quantity integer NOT NULL,
+    image character varying(100) NOT NULL,
+    sold boolean NOT NULL,
+    debt boolean NOT NULL
+);
+
+
+ALTER TABLE public.stock_clothes OWNER TO postgres;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY client_client ALTER COLUMN id SET DEFAULT nextval('client_client_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY expence_expence ALTER COLUMN id SET DEFAULT nextval('expence_expence_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY money_money ALTER COLUMN id SET DEFAULT nextval('money_money_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add clothes	7	add_clothes
+20	Can change clothes	7	change_clothes
+21	Can delete clothes	7	delete_clothes
+22	Can add money	8	add_money
+23	Can change money	8	change_money
+24	Can delete money	8	delete_money
+25	Can add client	9	add_client
+26	Can change client	9	change_client
+27	Can delete client	9	delete_client
+28	Can add expence	10	add_expence
+29	Can change expence	10	change_expence
+30	Can delete expence	10	delete_expence
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 30, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+2	pbkdf2_sha256$100000$IM6wi3Gbloy6$VOfuURNT65JTPhyaw6aSTtMPrIFq5lLLiJ91g9eyeUI=	2018-12-24 08:20:12.364032-05	f	rosanna				f	t	2018-12-09 15:57:09-05
+3	pbkdf2_sha256$100000$YxbltZrdUMch$mgA6NBIraB9PKZQbBnUIjEYNqowiQ6Glthr905aYAcw=	2018-12-27 11:01:05.9032-05	f	mehri				f	t	2018-12-12 05:05:37.289483-05
+1	pbkdf2_sha256$100000$PtDcceUzmtNt$r6f51v0oGALBt+oWyk+rXjmunJb9MIx1P6ZBi88L7YU=	2018-12-28 11:45:49.680493-05	t	admin				t	t	2018-12-08 19:36:16.906472-05
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 3, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 3, true);
+
+
+--
+-- Data for Name: client_client; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY client_client (id, created_at, updated_at, created_by, name, phone, email, debt) FROM stdin;
+\.
+
+
+--
+-- Name: client_client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('client_client_id_seq', 1, true);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2018-12-09 15:57:09.964054-05	2	rosanna	1	[{"added": {}}]	4	1
+2	2018-12-09 15:58:38.269792-05	2	rosanna	2	[{"changed": {"fields": ["user_permissions"]}}]	4	1
+3	2018-12-09 16:00:29.937132-05	2	rosanna	2	[{"changed": {"fields": ["user_permissions"]}}]	4	1
+4	2018-12-12 05:05:37.446501-05	3	mehri	1	[{"added": {}}]	4	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 4, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	stock	clothes
+8	money	money
+9	client	client
+10	expence	expence
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 10, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2018-12-08 19:35:14.542531-05
+2	auth	0001_initial	2018-12-08 19:35:15.16096-05
+3	admin	0001_initial	2018-12-08 19:35:15.327215-05
+4	admin	0002_logentry_remove_auto_add	2018-12-08 19:35:15.354802-05
+5	contenttypes	0002_remove_content_type_name	2018-12-08 19:35:15.416493-05
+6	auth	0002_alter_permission_name_max_length	2018-12-08 19:35:15.435339-05
+7	auth	0003_alter_user_email_max_length	2018-12-08 19:35:15.470321-05
+8	auth	0004_alter_user_username_opts	2018-12-08 19:35:15.490518-05
+9	auth	0005_alter_user_last_login_null	2018-12-08 19:35:15.52266-05
+10	auth	0006_require_contenttypes_0002	2018-12-08 19:35:15.530714-05
+11	auth	0007_alter_validators_add_error_messages	2018-12-08 19:35:15.556393-05
+12	auth	0008_alter_user_username_max_length	2018-12-08 19:35:15.626535-05
+13	auth	0009_alter_user_last_name_max_length	2018-12-08 19:35:15.662318-05
+14	money	0001_initial	2018-12-08 19:35:15.716426-05
+15	money	0002_auto_20181127_2127	2018-12-08 19:35:15.731013-05
+16	money	0003_auto_20181129_1659	2018-12-08 19:35:15.743812-05
+17	sessions	0001_initial	2018-12-08 19:35:15.869562-05
+18	stock	0001_initial	2018-12-08 19:35:15.935347-05
+19	client	0001_initial	2018-12-09 15:08:46.037521-05
+20	expence	0001_initial	2018-12-14 11:46:30.263169-05
+21	expence	0002_auto_20181214_1631	2018-12-14 11:46:30.333046-05
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 21, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+trvp0u8kccpatf34fxwmnxx8zean2cn3	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2018-12-23 15:58:00.574275-05
+ecry4drlxvyu11oo1f8slxws2m3u0duq	MzJlYmI5YTU1NWM1ZjhmZDAwOTcxYmM0NGNhYzY5YTUxZjM5YzAwZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZmJkYWE2NWNhZWE2NTFkNzFjMTI3MjVkYWM4YzFlMjdkMGUxODU5In0=	2018-12-23 16:07:09.463483-05
+u0fjwfspm15ygt43c9ha2hpgvhc5vn6b	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2018-12-23 17:45:59.878714-05
+x1imtw3evpy39bzlxgekz6hpfo0gntk5	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2018-12-24 06:35:05.330836-05
+wa7wd9t65ufcsz47npfgro2u8rc9eajf	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2018-12-26 05:05:01.211042-05
+2bs3p1hnw6fb1cyhhu9wzkfbgsa7o5wy	MzBkNjhiNjNhY2I4OTRiZjRmNmM3M2I4OGVmMGE2ODJhOTk0MDkzMjp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0MjIwZGNjMWFkNDM3ZGVlYWE0NDA4Yzg2NWJhZWY2YTU1NjNjYmJkIn0=	2018-12-26 05:07:44.274511-05
+wt1nsj54ft63hkuen5sqi4nf0twwm8fb	MzJlYmI5YTU1NWM1ZjhmZDAwOTcxYmM0NGNhYzY5YTUxZjM5YzAwZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZmJkYWE2NWNhZWE2NTFkNzFjMTI3MjVkYWM4YzFlMjdkMGUxODU5In0=	2018-12-26 06:11:54.582838-05
+q8e6yg6xje1r6j9jy48mvgb8mc7ovfwe	MzJlYmI5YTU1NWM1ZjhmZDAwOTcxYmM0NGNhYzY5YTUxZjM5YzAwZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZmJkYWE2NWNhZWE2NTFkNzFjMTI3MjVkYWM4YzFlMjdkMGUxODU5In0=	2018-12-29 05:08:12.188197-05
+77jcoei0w171ahpzr78n3ijjbkud8515	MzJlYmI5YTU1NWM1ZjhmZDAwOTcxYmM0NGNhYzY5YTUxZjM5YzAwZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZmJkYWE2NWNhZWE2NTFkNzFjMTI3MjVkYWM4YzFlMjdkMGUxODU5In0=	2019-01-06 18:07:57.848508-05
+6yd71y38v952h6gqwac7rxkmiejwjsng	MzJlYmI5YTU1NWM1ZjhmZDAwOTcxYmM0NGNhYzY5YTUxZjM5YzAwZjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJiZmJkYWE2NWNhZWE2NTFkNzFjMTI3MjVkYWM4YzFlMjdkMGUxODU5In0=	2019-01-07 08:20:12.3752-05
+xmqfrt9v8rwco52lclak5cacl3ayshdx	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2019-01-10 03:06:03.649306-05
+cgc8lfay83xycg274t2l1y66ungx1rr1	MzBkNjhiNjNhY2I4OTRiZjRmNmM3M2I4OGVmMGE2ODJhOTk0MDkzMjp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0MjIwZGNjMWFkNDM3ZGVlYWE0NDA4Yzg2NWJhZWY2YTU1NjNjYmJkIn0=	2019-01-10 10:52:59.501778-05
+iatvief4c56rbcowdx0qjvypxs0u0v7p	MzBkNjhiNjNhY2I4OTRiZjRmNmM3M2I4OGVmMGE2ODJhOTk0MDkzMjp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0MjIwZGNjMWFkNDM3ZGVlYWE0NDA4Yzg2NWJhZWY2YTU1NjNjYmJkIn0=	2019-01-10 11:01:05.926752-05
+uduxwfvv8dja0otqt4yi3zfpf3kuxl05	YWYzMzk0MjY0ZmU3NzM2OTQ4MjMxZjU2NjQ1MTgzYTFlZWRjMWEyOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhMzRmYmRiZTZjNzE2ZjM0YjJkNWQyNmZhYmYyZDhjMjAxODJkNjU2In0=	2019-01-11 11:45:49.693949-05
+\.
+
+
+--
+-- Data for Name: expence_expence; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY expence_expence (id, date, amount, purpose) FROM stdin;
+3	2018-09-03 20:00:00-04	200.00	buxqalter
+4	2018-09-03 20:00:00-04	280.00	za kassoviy apparat
+5	2018-09-05 20:00:00-04	32.00	platye v outlete
+6	2018-09-05 20:00:00-04	2.60	kulki
+7	2018-09-12 20:00:00-04	800.00	arenda
+8	2018-09-17 20:00:00-04	16.50	voda
+9	2018-09-17 20:00:00-04	72.00	stol ikea
+10	2018-09-19 20:00:00-04	52.00	internet
+11	2018-09-19 20:00:00-04	3.00	ayliq telefon
+12	2018-09-20 20:00:00-04	51.00	kartini
+13	2018-09-24 20:00:00-04	340.00	MCS
+14	2018-10-03 20:00:00-04	520.00	stativi, polki, maneken
+15	2018-10-03 20:00:00-04	10.00	kassa baxis
+16	2018-10-05 20:00:00-04	20.00	master, polki
+17	2018-10-07 20:00:00-04	46.00	birki
+18	2018-10-07 20:00:00-04	10.00	internet za mesyac
+19	2018-10-12 20:00:00-04	5.00	elektrik
+20	2018-10-12 20:00:00-04	4.00	voda
+21	2018-10-14 20:00:00-04	10.00	voda
+22	2018-10-15 20:00:00-04	13.00	svet
+23	2018-10-17 20:00:00-04	244.00	reklama
+24	2018-10-22 20:00:00-04	140.00	lekarstvo
+25	2018-10-22 20:00:00-04	60.00	erzag
+26	2018-10-24 20:00:00-04	20.00	erzaq
+27	2018-10-25 20:00:00-04	19.00	none
+28	2018-10-27 20:00:00-04	487.00	Mexri
+29	2018-11-01 20:00:00-04	4.00	su
+30	2018-11-01 20:00:00-04	18.00	ATS
+31	2018-11-05 19:00:00-05	10.00	osmotr kassi
+32	2018-11-07 19:00:00-05	155.00	stativ i vesalki
+33	2018-11-11 19:00:00-05	200.00	nam
+34	2018-11-18 19:00:00-05	100.00	nam
+35	2018-11-20 19:00:00-05	100.00	nam
+36	2018-11-21 19:00:00-05	150.00	kombi
+37	2018-11-22 19:00:00-05	10.00	voda
+38	2018-11-24 19:00:00-05	106.00	sederek
+39	2018-11-25 19:00:00-05	224.00	kargo
+40	2018-11-25 19:00:00-05	11.00	taksi
+41	2018-11-25 19:00:00-05	4.00	voda
+42	2018-11-26 19:00:00-05	7.00	kotu na gorshok
+43	2018-11-26 19:00:00-05	113.00	Mexri
+44	2018-11-01 20:00:00-04	280.00	Medina uchitelya
+45	2018-12-01 19:00:00-05	100.00	Mexri
+46	2018-12-04 19:00:00-05	18.00	internet
+47	2018-12-04 19:00:00-05	4.00	voda
+48	2018-12-04 19:00:00-05	10.00	tex osmotr kassa
+49	2018-12-07 19:00:00-05	200.00	buxqalter
+50	2018-12-07 19:00:00-05	162.00	Mexri
+51	2018-12-10 19:00:00-05	360.00	kargo tur tovar
+52	2018-12-10 19:00:00-05	20.00	posterminal
+53	2018-12-10 19:00:00-05	5.00	posterminal transfer
+54	2018-12-10 19:00:00-05	40.00	Mexri
+55	2018-12-10 19:00:00-05	3.00	portnixa
+56	2018-12-10 19:00:00-05	85.00	Mexri
+57	2018-12-11 19:00:00-05	20.00	svet
+58	2018-12-12 19:00:00-05	38.00	Mexri
+59	2018-12-13 19:00:00-05	50.00	Mexri
+60	2018-12-14 19:00:00-05	250.00	Renat rastamojka
+61	2018-12-14 19:00:00-05	4.00	voda
+62	2018-12-18 19:00:00-05	80.00	Mexri
+63	2018-12-18 19:00:00-05	114.00	Mexri
+64	2018-12-20 19:00:00-05	105.00	Mexri
+65	2018-12-21 19:00:00-05	300.00	Renat svadba
+66	2018-12-22 19:00:00-05	68.00	Mexri
+67	2018-12-24 19:00:00-05	100.00	kombi
+68	2018-12-24 19:00:00-05	16.00	reklama
+69	2018-12-25 19:00:00-05	23.00	Mexri
+70	2018-12-26 19:00:00-05	72.00	Mexri
+\.
+
+
+--
+-- Name: expence_expence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('expence_expence_id_seq', 70, true);
+
+
+--
+-- Data for Name: money_money; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY money_money (id, date, amount) FROM stdin;
+2	2018-09-17 20:00:00-04	103.00
+3	2018-09-18 20:00:00-04	40.00
+4	2018-09-20 20:00:00-04	55.00
+5	2018-09-21 20:00:00-04	74.00
+6	2018-10-01 20:00:00-04	50.00
+7	2018-10-03 20:00:00-04	80.00
+8	2018-10-05 20:00:00-04	90.00
+9	2018-10-06 20:00:00-04	87.00
+10	2018-10-07 20:00:00-04	5.00
+11	2018-10-08 20:00:00-04	12.00
+12	2018-10-09 20:00:00-04	43.00
+13	2018-10-10 20:00:00-04	40.00
+14	2018-10-11 20:00:00-04	135.00
+15	2018-10-12 20:00:00-04	120.00
+16	2018-10-13 20:00:00-04	242.00
+17	2018-10-14 20:00:00-04	160.00
+18	2018-10-15 20:00:00-04	120.00
+19	2018-10-16 20:00:00-04	90.00
+20	2018-10-17 20:00:00-04	35.00
+21	2018-10-19 20:00:00-04	165.00
+22	2018-10-21 20:00:00-04	100.00
+23	2018-10-23 20:00:00-04	40.00
+24	2018-10-25 20:00:00-04	173.00
+25	2018-10-26 20:00:00-04	45.00
+26	2018-10-30 20:00:00-04	141.00
+27	2018-10-31 20:00:00-04	38.00
+28	2018-11-01 20:00:00-04	5.00
+29	2018-11-02 20:00:00-04	30.00
+30	2018-11-05 19:00:00-05	13.00
+31	2018-11-07 19:00:00-05	210.00
+32	2018-11-08 19:00:00-05	66.00
+33	2018-11-09 19:00:00-05	75.00
+34	2018-11-14 19:00:00-05	48.00
+35	2018-11-16 19:00:00-05	78.00
+36	2018-11-18 19:00:00-05	159.00
+37	2018-11-20 19:00:00-05	151.00
+38	2018-11-21 19:00:00-05	458.00
+39	2018-11-22 19:00:00-05	48.00
+40	2018-11-23 19:00:00-05	45.00
+41	2018-11-24 19:00:00-05	100.00
+42	2018-11-26 19:00:00-05	100.00
+43	2018-11-29 19:00:00-05	153.00
+44	2018-12-04 19:00:00-05	210.00
+45	2018-12-06 19:00:00-05	20.00
+46	2018-12-07 19:00:00-05	118.00
+47	2018-12-08 19:00:00-05	110.00
+48	2018-12-09 19:00:00-05	110.00
+49	2018-12-10 19:00:00-05	155.00
+50	2018-12-11 19:00:00-05	144.00
+51	2018-12-13 19:00:00-05	179.00
+52	2018-12-14 19:00:00-05	70.00
+53	2018-12-15 19:00:00-05	143.00
+54	2018-12-16 19:00:00-05	108.00
+55	2018-12-17 19:00:00-05	280.00
+56	2018-12-19 19:00:00-05	47.00
+57	2018-12-22 19:00:00-05	186.00
+58	2018-12-23 19:00:00-05	88.00
+59	2018-12-24 19:00:00-05	68.00
+60	2018-12-26 19:00:00-05	77.00
+61	2018-12-27 19:00:00-05	100.00
+\.
+
+
+--
+-- Name: money_money_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('money_money_id_seq', 61, true);
+
+
+--
+-- Data for Name: stock_clothes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY stock_clothes (created_at, updated_at, created_by, code, brand, category, description, purchase_price, selling_price, discount, size, quantity, image, sold, debt) FROM stdin;
+2018-12-12 05:56:19.276898-05	2018-12-12 17:15:04.658181-05	rosanna	1642	Tur	Платье	Синее миди	38.00	95.00	3.00	M	1	clothes/1642/012.PNG	f	f
+2018-12-09 16:36:05.817372-05	2018-12-09 16:36:05.8174-05	rosanna	1601	TUR	KOFTA	krasnaya Gucci	30.00	58.00	3.00	S	1	clothes/1601/002.PNG	f	f
+2018-12-09 16:36:59.521348-05	2018-12-09 16:36:59.521375-05	rosanna	1602	TUR	KOFTA	krasnaya Gucci	30.00	58.00	3.00	M	1	clothes/1602/002.PNG	f	f
+2018-12-09 16:37:53.847181-05	2018-12-09 16:37:53.84721-05	rosanna	1603	TUR	KOFTA	krasnaya Gucci	30.00	58.00	3.00	L	1	clothes/1603/002.PNG	f	f
+2018-12-09 16:42:59.571758-05	2018-12-09 16:42:59.571785-05	rosanna	1604	TUR	KOFTA	krasnaya Gucci	30.00	58.00	3.00	XL	1	clothes/1604/002.PNG	f	f
+2018-12-09 16:49:46.877931-05	2018-12-09 16:49:46.877963-05	rosanna	1606	TUR	платье	трикотажное красное с поясом	40.00	83.00	3.00	M	1	clothes/1606/033.PNG	f	f
+2018-12-09 16:51:43.05986-05	2018-12-09 16:51:43.060128-05	rosanna	1607	TUR	платье	трикотажное красное с поясом	40.00	83.00	3.00	L	1	clothes/1607/033.PNG	f	f
+2018-12-09 16:52:14.095322-05	2018-12-09 16:52:14.09535-05	rosanna	1608	TUR	платье	трикотажное красное с поясом	40.00	83.00	3.00	XL	1	clothes/1608/033.PNG	f	f
+2018-12-09 17:00:31.744708-05	2018-12-09 17:00:31.744736-05	rosanna	1609	TUR	KOFTA	красная кофта рубашка (на фото серая)	24.00	48.00	3.00	S	1	clothes/1609/003.PNG	f	f
+2018-12-09 17:01:20.144294-05	2018-12-09 17:01:20.144323-05	rosanna	1610	TUR	KOFTA	красная кофта рубашка (на фото серая)	24.00	48.00	3.00	M	1	clothes/1610/003.PNG	f	f
+2018-12-09 17:01:59.222172-05	2018-12-09 17:01:59.222214-05	rosanna	1611	TUR	KOFTA	красная кофта рубашка (на фото серая)	24.00	48.00	3.00	L	1	clothes/1611/003.PNG	f	f
+2018-12-09 17:02:44.200515-05	2018-12-09 17:02:44.200543-05	rosanna	1612	TUR	KOFTA	красная кофта рубашка (на фото серая)	24.00	48.00	3.00	XL	1	clothes/1612/003.PNG	f	f
+2018-12-09 17:07:21.070461-05	2018-12-09 17:07:21.070489-05	rosanna	1613	TUR	свитер	водолазка  макаронка	17.00	37.00	3.00	M	1	clothes/1613/004.PNG	f	f
+2018-12-09 17:07:58.547346-05	2018-12-09 17:07:58.547373-05	rosanna	1614	TUR	свитер	водолазка  макаронка	17.00	37.00	3.00	M	1	clothes/1614/004.PNG	f	f
+2018-12-09 17:08:30.567926-05	2018-12-09 17:08:30.567962-05	rosanna	1615	TUR	свитер	водолазка  макаронка	17.00	37.00	3.00	M	1	clothes/1615/004.PNG	f	f
+2018-12-09 17:12:23.858621-05	2018-12-09 17:12:23.858649-05	rosanna	1616	TUR	свитер	водолазка	25.00	48.00	3.00	M	1	clothes/1616/005.PNG	f	f
+2018-12-09 17:15:32.785563-05	2018-12-09 17:15:32.785594-05	rosanna	1618	TUR	свитер	водолазка	25.00	48.00	3.00	M	1	clothes/1618/005.PNG	f	f
+2018-12-09 17:20:04.09595-05	2018-12-09 17:20:31.611636-05	rosanna	1619	TUR	свитер	розовый джемпер (на фото голубой)	25.00	53.00	3.00	M	1	clothes/1619/006.PNG	f	f
+2018-12-09 17:21:53.614858-05	2018-12-09 17:21:53.614921-05	rosanna	1620	TUR	свитер	розовый джемпер (на фото голубой)	25.00	53.00	3.00	M	1	clothes/1620/006.PNG	f	f
+2018-12-09 17:22:23.823034-05	2018-12-09 17:22:23.823062-05	rosanna	1621	TUR	свитер	розовый джемпер (на фото голубой)	25.00	53.00	3.00	M	1	clothes/1621/006.PNG	f	f
+2018-12-12 03:55:08.828238-05	2018-12-12 03:55:22.857321-05	rosanna	1622	TUR	комбинезон	черный плессе	26.00	65.00	5.00	0	1	clothes/1622/009.PNG	f	f
+2018-12-12 03:57:38.193297-05	2018-12-12 03:57:38.193325-05	rosanna	1623	TUR	комбинезон	черный плессе	26.00	65.00	5.00	0	1	clothes/1623/009.PNG	f	f
+2018-12-12 03:58:09.077653-05	2018-12-12 03:58:09.07768-05	rosanna	1624	TUR	комбинезон	черный плессе	25.00	65.00	5.00	0	1	clothes/1624/009.PNG	f	f
+2018-12-12 04:40:39.110644-05	2018-12-12 04:40:39.110671-05	rosanna	1629	TUR	кофта	желтое	26.00	57.00	3.00	S	1	clothes/1629/008.PNG	f	f
+2018-12-12 04:41:22.479099-05	2018-12-12 04:41:22.479132-05	rosanna	1630	TUR	кофта	желтое	26.00	57.00	3.00	M	1	clothes/1630/008.PNG	f	f
+2018-12-12 04:42:10.748921-05	2018-12-12 04:42:10.748954-05	rosanna	1631	TUR	кофта	желтое	26.00	57.00	3.00	L	1	clothes/1631/008.PNG	f	f
+2018-12-12 04:42:52.725785-05	2018-12-12 04:42:52.726122-05	rosanna	1632	TUR	кофта	желтое	26.00	57.00	3.00	XL	1	clothes/1632/008.PNG	f	f
+2018-12-12 04:47:22.651219-05	2018-12-12 04:47:22.651247-05	rosanna	1633	TUR	кофта	черная бархатная	40.00	80.00	4.00	S	1	clothes/1633/010.PNG	f	f
+2018-12-12 04:48:05.165766-05	2018-12-12 04:48:05.165793-05	rosanna	1634	TUR	кофта	черная бархатная	40.00	80.00	3.00	M	1	clothes/1634/010.PNG	f	f
+2018-12-12 04:49:39.049655-05	2018-12-12 04:49:39.049683-05	rosanna	1636	TUR	кофта	черная бархатная	40.00	80.00	3.00	XL	1	clothes/1636/010.PNG	f	f
+2018-12-12 06:14:21.629185-05	2018-12-12 06:14:21.629212-05	rosanna	1645	Tur	Платье	Бордо клеш ( на фото серая)	38.00	88.00	3.00	S	1	clothes/1645/013.PNG	f	f
+2018-12-12 06:15:29.326806-05	2018-12-12 06:15:29.326833-05	rosanna	1646	Tur	Платье	Бордо клеш ( на фото серая)	38.00	88.00	3.00	M	1	clothes/1646/013.PNG	f	f
+2018-12-12 06:16:08.514536-05	2018-12-12 06:16:08.514564-05	rosanna	1647	Tur	Платье	Бордо клеш ( на фото серая)	38.00	88.00	3.00	L	1	clothes/1647/013.PNG	f	f
+2018-12-12 06:17:02.410091-05	2018-12-12 06:17:02.410124-05	rosanna	1648	Tur	Платье	Бордо клеш ( на фото серая)	38.00	88.00	3.00	XL	1	clothes/1648/013.PNG	f	f
+2018-12-12 05:50:08.427088-05	2018-12-13 03:23:12.656533-05	rosanna	1638	Tur	Платье	Черное с желтым	26.00	110.00	10.00	M	1	clothes/1638/011.PNG	f	f
+2018-12-12 06:20:37.644619-05	2018-12-12 06:22:59.873011-05	rosanna	1649	Tur	Платье	Черное с красным	38.00	88.00	3.00	S	1	clothes/1649/20181212_122159.jpg	f	f
+2018-12-12 05:50:56.338754-05	2018-12-13 03:23:37.781703-05	rosanna	1639	Tur	Платье	Черное с желтым	26.00	110.00	10.00	L	1	clothes/1639/011.PNG	f	f
+2018-12-09 17:13:02.171852-05	2018-12-16 19:03:41.616387-05	admin	1617	TUR	свитер	водолазка	25.00	48.00	2.00	M	1	clothes/1617/005.PNG	f	f
+2018-12-12 05:52:18.094331-05	2018-12-13 03:24:06.309744-05	rosanna	1640	Tur	Платье	Черное с желтым	26.00	110.00	10.00	XL	1	clothes/1640/011.PNG	f	f
+2018-12-12 16:39:46.680462-05	2018-12-12 16:39:46.680489-05	rosanna	1650	TUR	платье	красное с черным	38.00	88.00	3.00	M	1	clothes/1650/034.PNG	f	f
+2018-12-12 16:40:50.647141-05	2018-12-12 16:40:50.647168-05	rosanna	1651	TUR	платье	красное с черным	38.00	88.00	3.00	L	1	clothes/1651/034.PNG	f	f
+2018-12-12 16:41:41.978064-05	2018-12-12 16:41:41.978096-05	rosanna	1652	TUR	платье	красное с черным	38.00	88.00	3.00	XL	1	clothes/1652/034.PNG	f	f
+2018-12-12 05:58:24.339589-05	2018-12-12 17:15:19.493803-05	rosanna	1643	Tur	Платье	Синее миди	38.00	95.00	3.00	L	1	clothes/1643/012.PNG	f	f
+2018-12-12 04:01:33.173394-05	2018-12-25 12:03:30.06193-05	rosanna	1625	TUR	платье	бордо стойка воротник	30.00	65.00	0.00	S	1	clothes/1625/007.PNG	f	f
+2018-12-12 05:59:11.003678-05	2018-12-20 11:28:06.265622-05	mehri	1644	Tur	Платье	Синее миди	38.00	95.00	5.00	XL	1	clothes/1644/012.PNG	t	f
+2018-12-09 16:49:03.645339-05	2018-12-16 19:00:06.233912-05	admin	1605	TUR	платье	трикотажное красное с поясом	40.00	83.00	3.00	S	1	clothes/1605/033.PNG	f	f
+2018-12-12 04:49:07.484191-05	2018-12-20 11:17:40.490431-05	mehri	1635	TUR	кофта	черная бархатная	40.00	80.00	2.00	L	1	clothes/1635/010.PNG	f	f
+2018-12-12 04:02:37.145392-05	2018-12-25 12:03:56.316695-05	rosanna	1626	TUR	платье	красное стойка воротник	30.00	65.00	0.00	M	1	clothes/1626/007.PNG	f	f
+2018-12-12 04:03:21.939785-05	2018-12-25 12:04:19.531512-05	rosanna	1627	TUR	платье	красное стойка воротник	30.00	65.00	0.00	L	1	clothes/1627/007.PNG	f	f
+2018-12-12 04:03:51.30056-05	2018-12-25 12:04:43.68559-05	rosanna	1628	TUR	платье	красное стойка воротник	30.00	65.00	0.00	XL	1	clothes/1628/007.PNG	f	f
+2018-12-12 16:45:47.977297-05	2018-12-12 16:45:47.977328-05	rosanna	1653	TUR	платье	черное с бахрамой	40.00	130.00	10.00	S	1	clothes/1653/014.PNG	f	f
+2018-12-12 16:46:43.467159-05	2018-12-12 16:46:43.467192-05	rosanna	1654	TUR	платье	черное с бахрамой	40.00	130.00	10.00	M	1	clothes/1654/014.PNG	f	f
+2018-12-12 16:47:57.621585-05	2018-12-12 16:47:57.621622-05	rosanna	1655	TUR	платье	черное с бахрамой	40.00	130.00	10.00	L	1	clothes/1655/014.PNG	f	f
+2018-12-12 16:48:33.786218-05	2018-12-12 16:48:33.786246-05	rosanna	1656	TUR	платье	черное с бахрамой	40.00	130.00	10.00	XL	1	clothes/1656/014.PNG	f	f
+2018-12-12 17:11:07.22931-05	2018-12-12 17:11:07.229338-05	rosanna	1661	TUR	куртка	красное Gucci	50.00	110.00	5.00	S	1	clothes/1661/015.PNG	f	f
+2018-12-12 17:13:15.065805-05	2018-12-12 17:13:15.065833-05	rosanna	1663	TUR	куртка	krasnaya Gucci	50.00	110.00	5.00	L	1	clothes/1663/015.PNG	f	f
+2018-12-12 17:14:06.270954-05	2018-12-12 17:14:06.270988-05	rosanna	1664	TUR	куртка	krasnaya Gucci	50.00	110.00	5.00	XL	1	clothes/1664/015.PNG	f	f
+2018-12-12 05:55:06.5591-05	2018-12-12 17:14:48.056144-05	rosanna	1641	Tur	Платье	Синее миди	38.00	95.00	3.00	S	1	clothes/1641/012.PNG	f	f
+2018-12-12 05:48:51.502408-05	2018-12-13 03:22:51.745252-05	rosanna	1637	Tur	Платье	Черное с желтым	26.00	110.00	10.00	S	1	clothes/1637/011.PNG	f	f
+2018-12-13 05:11:12.369343-05	2018-12-13 05:11:12.369371-05	rosanna	1669	TUR	платье	зеленая на поясе	40.00	110.00	10.00	S	1	clothes/1669/017.PNG	f	f
+2018-12-13 05:11:54.00675-05	2018-12-13 05:11:54.006777-05	rosanna	1670	TUR	платье	зеленая на поясе	40.00	110.00	10.00	M	1	clothes/1670/017.PNG	f	f
+2018-12-13 05:12:26.526297-05	2018-12-13 05:12:26.526324-05	rosanna	1671	TUR	платье	зеленая на поясе	40.00	110.00	10.00	L	1	clothes/1671/017.PNG	f	f
+2018-12-13 05:13:10.918269-05	2018-12-13 05:13:10.918295-05	rosanna	1672	TUR	платье	зеленая на поясе	40.00	110.00	10.00	XL	1	clothes/1672/017.PNG	f	f
+2018-12-13 05:25:25.874764-05	2018-12-13 05:25:25.874792-05	rosanna	1677	TUR	кофта	красная	17.00	38.00	3.00	S	1	clothes/1677/019.PNG	f	f
+2018-12-13 05:27:12.355197-05	2018-12-13 05:27:12.355225-05	rosanna	1678	TUR	кофта	красная	17.00	38.00	3.00	M	1	clothes/1678/019.PNG	f	f
+2018-12-13 05:30:38.262729-05	2018-12-13 05:30:38.262756-05	rosanna	1679	TUR	кофта	красная	17.00	38.00	3.00	L	1	clothes/1679/019.PNG	f	f
+2018-12-13 05:31:14.941583-05	2018-12-13 05:31:14.94161-05	rosanna	1680	TUR	кофта	красная	17.00	38.00	3.00	XL	1	clothes/1680/019.PNG	f	f
+2018-12-13 05:43:26.852378-05	2018-12-13 05:43:26.852406-05	rosanna	1681	TUR	платье	черное с желтым стилем версаче	38.00	88.00	3.00	S	1	clothes/1681/035.PNG	f	f
+2018-12-13 05:45:01.122491-05	2018-12-13 05:45:01.122519-05	rosanna	1684	TUR	платье	черное с желтым стилем версаче	38.00	88.00	3.00	XL	1	clothes/1684/035.PNG	f	f
+2018-12-13 06:05:23.388013-05	2018-12-13 06:05:23.388044-05	rosanna	1685	TUR	платье	черное с вышевкой	62.00	150.00	10.00	S	1	clothes/1685/027.PNG	f	f
+2018-12-13 06:06:25.534938-05	2018-12-13 06:06:25.534972-05	rosanna	1686	TUR	платье	черное с вышевкой	62.00	150.00	10.00	M	1	clothes/1686/027.PNG	f	f
+2018-12-13 06:07:04.254925-05	2018-12-13 06:07:04.254959-05	rosanna	1687	TUR	платье	черное с вышевкой	62.00	150.00	10.00	L	1	clothes/1687/027.PNG	f	f
+2018-12-13 06:07:34.849248-05	2018-12-13 06:07:34.849282-05	rosanna	1688	TUR	платье	черное с вышевкой	62.00	150.00	10.00	XL	1	clothes/1688/027.PNG	f	f
+2018-12-12 17:12:26.408182-05	2018-12-15 05:09:30.236764-05	rosanna	1662	TUR	куртка	красное Gucci	50.00	110.00	5.00	M	1	clothes/1662/015.PNG	f	f
+2018-12-16 09:54:09.495506-05	2018-12-16 09:54:09.495535-05	rosanna	1689	TUR	платье	красное с жабо руковом	26.00	110.00	5.00	S	1	clothes/1689/030.PNG	f	f
+2018-12-16 09:55:03.723114-05	2018-12-16 09:55:03.723143-05	rosanna	1690	TUR	платье	красная с жаббо	26.00	110.00	5.00	M	1	clothes/1690/030.PNG	f	f
+2018-12-16 09:55:46.166623-05	2018-12-16 09:55:46.166656-05	rosanna	1691	TUR	платье	красная с жаббо	26.00	110.00	5.00	L	1	clothes/1691/030.PNG	f	f
+2018-12-12 17:20:35.964089-05	2018-12-25 11:55:10.681546-05	rosanna	1665	TUR	пальто	синее	50.00	107.00	0.00	S	1	clothes/1665/016.PNG	f	f
+2018-12-16 09:56:19.081514-05	2018-12-16 09:59:49.680384-05	mehri	1692	TUR	платье	красная с жаббо	26.00	110.00	5.00	XL	1	clothes/1692/030.PNG	t	f
+2018-12-17 06:42:30.069919-05	2018-12-17 06:42:30.069956-05	rosanna	1993	TUR	кофта	кирпичный со шнуром	17.00	42.00	4.00	S	1	clothes/1993/028.PNG	f	f
+2018-12-17 06:43:04.991344-05	2018-12-17 06:43:04.991372-05	rosanna	1694	TUR	кофта	кирпичный со шнуром	17.00	42.00	4.00	M	1	clothes/1694/028.PNG	f	f
+2018-12-17 07:13:07.156103-05	2018-12-17 07:13:07.156135-05	rosanna	1699	TUR	платье	черная с белым	26.00	88.00	3.00	XL	1	clothes/1699/029.PNG	f	f
+2018-12-17 07:11:08.938642-05	2018-12-17 07:11:08.93867-05	rosanna	1696	TUR	платье	черное с белым	26.00	88.00	3.00	S	1	clothes/1696/029.PNG	f	f
+2018-12-17 07:11:55.321197-05	2018-12-17 07:11:55.321226-05	rosanna	1697	TUR	платье	черная с белым	26.00	88.00	3.00	M	1	clothes/1697/029.PNG	f	f
+2018-12-17 07:12:29.86445-05	2018-12-17 07:12:29.864478-05	rosanna	1698	TUR	платье	черная с белым	26.00	88.00	3.00	L	1	clothes/1698/029.PNG	f	f
+2018-12-17 07:17:01.535773-05	2018-12-17 07:17:01.535803-05	rosanna	1700	TUR	кофта	зеленые крушки	26.00	57.00	3.00	S	1	clothes/1700/031.PNG	f	f
+2018-12-17 07:19:26.328471-05	2018-12-17 07:19:26.328501-05	rosanna	1701	TUR	кофта	зеленые крушки	26.00	57.00	3.00	M	1	clothes/1701/031.PNG	f	f
+2018-12-17 07:20:50.23006-05	2018-12-17 07:20:50.23009-05	rosanna	1703	TUR	кофта	зеленые крушки	26.00	57.00	3.00	XL	1	clothes/1703/031.PNG	f	t
+2018-12-17 07:27:02.192701-05	2018-12-17 07:27:02.192729-05	rosanna	1704	TUR	платье	сереневое	26.00	110.00	10.00	S	1	clothes/1704/032.PNG	f	f
+2018-12-17 07:20:14.67363-05	2018-12-18 11:52:27.612754-05	mehri	1702	TUR	кофта	зеленые крушки	26.00	57.00	1.00	L	1	clothes/1702/031.PNG	t	f
+2018-12-12 17:21:42.745224-05	2018-12-24 18:20:36.076845-05	rosanna	1667	TUR	пальто	синее	50.00	130.00	0.00	L	1	clothes/1667/016.PNG	t	f
+2018-12-12 17:21:10.16782-05	2018-12-25 11:55:53.947022-05	rosanna	1666	TUR	пальто	синее	50.00	107.00	0.00	M	1	clothes/1666/016.PNG	f	f
+2018-12-12 17:22:13.3042-05	2018-12-25 11:56:17.989398-05	rosanna	1668	TUR	пальто	синее	50.00	107.00	0.00	XL	1	clothes/1668/016.PNG	f	f
+2018-12-13 05:18:31.309045-05	2018-12-25 11:59:12.383477-05	rosanna	1673	TUR	пальто	пальто с замком	52.00	110.00	0.00	S	1	clothes/1673/018.PNG	f	f
+2018-12-13 05:20:32.071601-05	2018-12-25 12:01:16.099388-05	rosanna	1675	TUR	пальто	серое с замком	52.00	110.00	10.00	L	1	clothes/1675/018.PNG	f	f
+2018-12-13 05:19:33.761479-05	2018-12-25 12:00:02.45466-05	rosanna	1674	TUR	пальто	серое с замком	52.00	110.00	10.00	M	1	clothes/1674/018.PNG	f	f
+2018-12-12 16:52:50.597447-05	2018-12-25 12:10:13.807659-05	rosanna	1658	TUR	платье	серое длинное плессе	82.00	140.00	0.00	M	1	clothes/1658/001.PNG	f	f
+2018-12-13 05:22:44.405272-05	2018-12-25 12:02:05.377438-05	rosanna	1676	TUR	пальто	серое с замком	52.00	110.00	10.00	XL	1	clothes/1676/018.PNG	f	f
+2018-12-12 16:51:22.871402-05	2018-12-25 12:10:35.084293-05	rosanna	1657	TUR	платье	серое длинное плессе	82.00	140.00	0.00	S	1	clothes/1657/001.PNG	f	f
+2018-12-12 16:53:31.162124-05	2018-12-25 12:12:04.636046-05	rosanna	1659	TUR	платье	серое длинное плессе	82.00	140.00	0.00	L	1	clothes/1659/001.PNG	f	f
+2018-12-12 16:54:08.010705-05	2018-12-25 12:12:28.830229-05	rosanna	1660	TUR	платье	серое длинное плессе	82.00	140.00	0.00	XL	1	clothes/1660/001.PNG	f	f
+2018-12-17 07:27:39.820282-05	2018-12-17 07:27:39.82031-05	rosanna	1705	TUR	платье	сереневое	26.00	110.00	10.00	M	1	clothes/1705/032.PNG	f	f
+2018-12-17 07:33:10.693249-05	2018-12-17 07:33:10.693277-05	rosanna	1707	TUR	платье	сереневое	26.00	110.00	10.00	XL	1	clothes/1707/032.PNG	f	f
+2018-12-17 06:43:35.549195-05	2018-12-18 11:41:03.974199-05	mehri	1695	TUR	кофта	кирпичный со шнуром	17.00	42.00	4.00	L	1	clothes/1695/028.PNG	f	f
+2018-12-24 08:43:58.29907-05	2018-12-24 08:43:58.299097-05	rosanna	1374	H&M	shirt	belaya maika	22.00	36.00	4.00	0	1		f	f
+2018-12-24 09:04:21.342608-05	2018-12-25 10:26:09.957714-05	rosanna	204	H&M	Hoody	ROZOVII XUDI X2	6.00	25.00	0.00	0	2		f	f
+2018-12-24 09:04:45.807654-05	2018-12-24 09:04:45.80768-05	rosanna	500	RUS	платье	Платье "Тамила"синее (46)	40.00	100.00	30.00	46	1		f	f
+2018-12-24 09:10:47.040321-05	2018-12-24 09:10:47.040348-05	rosanna	213	H&M	None	SERII PUPSIK A1	10.00	35.00	7.00	0	1		f	f
+2018-12-24 09:15:08.311529-05	2018-12-28 07:25:00.974856-05	rosanna	216	H&M	Pant	BRUKI BEJ SAFARI 13 6,7,8,2	12.00	52.00	7.00	0	1		f	f
+2018-12-24 09:16:18.458441-05	2018-12-24 09:16:18.458469-05	rosanna	501	RUS	платье	Платье "Тамила"пихтовый (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 09:17:06.58963-05	2018-12-24 09:17:06.589656-05	rosanna	502	RUS	платье	Платье Айова темно-серое (46)	42.00	100.00	30.00	46	1		f	f
+2018-12-24 09:17:39.383006-05	2018-12-24 09:17:39.383033-05	rosanna	503	RUS	платье	Платье Айова темно-серое (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 09:19:30.949367-05	2018-12-24 09:19:30.949394-05	rosanna	504	RUS	платье	Платье Айова темно-серое (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 09:19:37.724789-05	2018-12-24 09:19:37.724815-05	rosanna	222	H&M	Jeans	DJINSI CHERNIE JEMCUG C10	13.00	55.00	7.00	0	5		f	f
+2018-12-24 09:21:54.493148-05	2018-12-24 09:21:54.493176-05	rosanna	505	RUS	платье	Платье Айова темно-серое (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 09:22:51.548303-05	2018-12-24 09:22:51.54833-05	rosanna	506	RUS	платье	Платье "Кармелла" (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 09:24:23.233527-05	2018-12-24 09:24:23.233555-05	rosanna	226	H&M	shirt	RUBASHKA V POLOSKU ROZOVAYA 040	13.00	35.00	5.00	0	1		f	f
+2018-12-24 09:26:31.923688-05	2018-12-24 09:26:31.923714-05	rosanna	507	RUS	платье	Платье "Кармелла" (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 09:27:16.106749-05	2018-12-24 09:27:16.106776-05	rosanna	508	RUS	платье	Платье "Кармелла" (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 09:29:31.746332-05	2018-12-24 09:29:31.74636-05	rosanna	232	H&M	shirt	CERNAYA MAIKA S KRILISHKAMI S14	10.00	32.00	7.00	0	3		f	f
+2018-12-24 09:30:17.298093-05	2018-12-24 09:30:17.298122-05	rosanna	509	RUS	платье	Платье "Изабелла" (44)	42.00	100.00	30.00	44	1		f	f
+2018-12-24 09:32:20.88486-05	2018-12-24 09:32:20.884955-05	rosanna	510	RUS	платье	Платье"Бригелла"цветы на васильковом фоне (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 09:32:25.823039-05	2018-12-24 09:32:25.823067-05	rosanna	239	H&M	blouse	TOPIK ROZOVII ,BELII, CERNII C10	13.00	32.00	4.00	0	4		f	f
+2018-12-24 09:33:05.545035-05	2018-12-24 09:33:05.545062-05	rosanna	240	H&M	blouse	TOPIK MAKARONKA V2	6.00	28.00	6.00	0	2		f	f
+2018-12-24 09:36:00.481763-05	2018-12-24 09:38:56.826062-05	rosanna	511	RUS	платье	Платье "Деметра" (50)	42.00	110.00	30.00	50	1		f	f
+2018-12-24 09:44:05.611378-05	2018-12-24 09:44:05.611405-05	rosanna	512	RUS	платье	Платье "Эрика" (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 09:44:52.801179-05	2018-12-24 09:44:52.801205-05	rosanna	243	H&M	shirt	BELAJA RUBASHKA MARL	13.00	30.00	3.00	0	3		f	f
+2018-12-24 09:46:50.334144-05	2018-12-24 09:46:50.334171-05	rosanna	513	RUS	платье	Платье "Эрика" (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 09:48:49.466171-05	2018-12-24 09:48:49.466199-05	rosanna	245	H&M	blouse	BELIY V POLOSKU S FANAREM 110	20.00	42.00	4.00	0	1		f	f
+2018-12-24 09:49:48.391034-05	2018-12-24 09:49:48.391061-05	rosanna	246	H&M	shirt	BELAJA SOROCKA CISTAYA BEZ BIRKA	10.00	42.00	4.00	0	1		f	f
+2018-12-24 09:52:36.637051-05	2018-12-24 09:52:36.637078-05	rosanna	514	RUS	платье	Платье "Бригелла" (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 09:52:55.479344-05	2018-12-24 09:52:55.47937-05	rosanna	248	H&M	shirt	BELAYA MAIKA S VALANAMI 103	10.00	28.00	3.00	0	2		f	f
+2018-12-24 09:54:59.860264-05	2018-12-24 09:54:59.860291-05	rosanna	249	HM	blouse	SINIIY V BELUU POLOSKU RUKAF NA ZAVAZKE 037	10.00	25.00	5.00	0	2		f	f
+2018-12-24 08:41:10.654174-05	2018-12-24 10:50:40.93878-05	rosanna	311	North Bend	Polo	Polo	10.00	43.00	5.00	0	4		f	f
+2018-12-24 08:42:56.907004-05	2018-12-24 17:18:00.937369-05	rosanna	1055	H&M	shirt	roz maika s ajurom	15.00	30.00	2.00	0	1		f	f
+2018-12-24 09:01:08.389265-05	2018-12-25 10:24:31.192674-05	rosanna	202	H&M	None	SERII NEW YORK C12	6.00	25.00	0.00	0	1		f	f
+2018-12-24 08:59:58.809711-05	2018-12-25 10:15:40.120674-05	rosanna	201	H&M	Sweater	PERSIKOVII SVITER R7	10.00	30.00	0.00	0	2		f	f
+2018-12-24 09:05:02.106678-05	2018-12-25 10:27:59.203339-05	rosanna	205	H&M	Angor	ROZOVAYA ANGORKA C12	10.00	30.00	0.00	0	1		f	f
+2018-12-24 09:09:53.27398-05	2018-12-25 10:28:46.23233-05	rosanna	212	H&M	Sweater	SINII NITOCNIY SVITER 023	6.00	25.00	0.00	0	2		f	f
+2018-12-24 08:30:00.552198-05	2018-12-25 10:36:20.281368-05	rosanna	286	CLİQUE	рубашка	тениска 2 кармана беж, красный	2.00	15.00	0.00	0	7		f	f
+2018-12-24 08:35:48.973106-05	2018-12-25 10:38:43.348643-05	rosanna	288	NEW WAVE	рубашка	рубашки классика синий, серый	2.00	15.00	0.00	0	8		f	f
+2018-12-24 09:02:47.415526-05	2018-12-25 11:32:30.39226-05	rosanna	203	H&M	None	ROZOVAJA LODOCKA S14	10.00	25.00	0.00	0	3		f	f
+2018-12-24 09:06:45.684582-05	2018-12-25 11:34:33.738632-05	rosanna	208	H&M	Cardigan	SIRENEVIY ANGORKA KARDIGAN S22	13.00	40.00	0.00	0	1		f	f
+2018-12-24 09:07:37.579579-05	2018-12-25 11:39:49.362544-05	rosanna	209	H&M	Cardigan	SERII KARDIGAN 078	10.00	32.00	7.00	0	3		f	f
+2018-12-24 09:08:48.561904-05	2018-12-25 11:40:18.087398-05	rosanna	211	H&M	blouse	KOFTA SERAYA KLETKA 001	13.00	30.00	0.00	0	1		f	f
+2018-12-24 09:11:59.285129-05	2018-12-28 07:15:09.973708-05	rosanna	214	H&M	blouse	GOLUBOY JAKET 016	10.00	35.00	7.00	0	2		f	f
+2018-12-24 09:12:43.063101-05	2018-12-28 07:18:27.47613-05	rosanna	215	OASIS	Dress	PLATYA CERNOE OASIS	100.00	100.00	0.00	0	1		f	f
+2018-12-24 09:16:10.864272-05	2018-12-28 07:26:49.13323-05	rosanna	217	H&M	Pant	BRUKI LASINI BORDO 026	10.00	33.00	3.00	0	3		f	f
+2018-12-24 09:17:07.287153-05	2018-12-28 07:28:56.216395-05	rosanna	219	H&M	Pant	BRUKI KRASNIY	10.00	33.00	3.00	0	1		f	f
+2018-12-24 09:18:06.250354-05	2018-12-28 07:35:18.289545-05	rosanna	220	H&M	Jeans	DJINSI BELIE 009	10.00	48.00	5.00	0	6		f	f
+2018-12-24 09:20:50.842383-05	2018-12-28 07:39:05.981554-05	rosanna	224	H&M	shirt	TENISKA V POLOSKU 107	10.00	28.00	3.00	0	4		f	f
+2018-12-24 09:22:24.524976-05	2018-12-28 07:40:15.895774-05	rosanna	225	H&M	blouse	GOLUBAJA BLUZKA NA SHNURKE X1	20.00	42.00	5.00	0	2		f	f
+2018-12-24 09:25:15.352082-05	2018-12-28 07:42:00.21026-05	rosanna	227	H&M	shirt	RUBASHKA V POLOSKU GOLUBAJA	13.00	37.00	5.00	0	1		f	f
+2018-12-24 09:26:12.425158-05	2018-12-28 07:45:16.354773-05	rosanna	229	H&M	blouse	BLUZKA PUDRA S21	13.00	38.00	0.00	0	2		f	f
+2018-12-24 09:27:06.101274-05	2018-12-28 07:54:45.351243-05	rosanna	231	H&M	blouse	ATLASNAYA CERNAJA BLUZKA 092	12.00	46.00	11.00	0	1		f	t
+2018-12-24 09:30:58.638412-05	2018-12-28 09:07:38.436699-05	rosanna	234	H&M	blouse	SINIA KOFTA PROSHVA 026	20.00	42.00	2.00	0	1		f	f
+2018-12-24 09:30:18.198856-05	2018-12-28 09:04:43.798828-05	rosanna	233	H&M	кофта	BELIYA SAFARI C KARMANAMI 105,6	12.00	45.00	7.00	0	1		f	f
+2018-12-24 09:31:42.162491-05	2018-12-28 09:09:03.127929-05	rosanna	237	H&M	None	BELAYA RAPASHENKA S21	13.00	48.00	7.00	0	1		f	f
+2018-12-24 09:43:35.852233-05	2018-12-28 09:19:18.890058-05	rosanna	242	H&M	blouse	BELAYA KOFTA S FANARIK RUKAF 150	9.00	38.00	6.00	0	2		t	f
+2018-12-24 09:47:01.771222-05	2018-12-28 09:28:43.200367-05	rosanna	244	H&M	blouse	SINIIY GOROX RUKAF NA ZAVAZKE X2	8.00	30.00	3.00	0	2		t	f
+2018-12-24 09:51:15.209148-05	2018-12-28 09:31:59.008315-05	rosanna	247	H&M	blouse	BELAYA RUKAV NA SHNURKE 102	13.00	38.00	5.00	0	1		f	t
+2018-12-24 09:57:23.804801-05	2018-12-24 09:57:23.80483-05	rosanna	516	RUS	платье	Платье "Эйдис"синее (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 09:57:58.305117-05	2018-12-24 09:57:58.305144-05	rosanna	517	RUS	платье	Платье "Эйдис"синее (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 09:58:08.075932-05	2018-12-24 09:58:08.075963-05	rosanna	252	H&M	shirt	SERAJA MAIKA LOVER 092	10.00	28.00	3.00	0	1		f	f
+2018-12-24 09:58:39.516605-05	2018-12-24 09:58:39.516633-05	rosanna	253	H&M	shirt	BELAJA MAIKA S ZELENIM LEOPARDOM 017	10.00	27.00	5.00	0	2		f	f
+2018-12-24 09:58:44.829368-05	2018-12-24 09:58:44.829395-05	rosanna	518	RUS	платье	Платье "Таисия"синий джинс (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 09:59:15.844825-05	2018-12-24 09:59:15.844851-05	rosanna	254	H&M	shirt	MAIKA PUDRA S NADPISIU 370	10.00	27.00	5.00	0	1		f	f
+2018-12-24 09:59:29.015677-05	2018-12-24 09:59:29.015738-05	rosanna	519	RUS	платье	Платье "Таисия"синий джинс (56)	42.00	100.00	30.00	56	1		f	f
+2018-12-24 10:03:04.983692-05	2018-12-24 10:03:04.983719-05	rosanna	260	GINATRICOT	blouse	CERNAYA SHIFONOVYA BLUZKA S VALANOM	20.00	48.00	6.00	0	2		f	f
+2018-12-24 10:04:41.577941-05	2018-12-24 10:04:41.577973-05	rosanna	520	RUS	платье	Платье "Бриджида"серое (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 10:06:33.084257-05	2018-12-24 10:06:33.084285-05	rosanna	264	GINATRICOT	dress	CERNIY SARAFAN	18.00	65.00	8.00	0	1		f	f
+2018-12-24 10:08:58.991743-05	2018-12-24 10:08:58.99177-05	rosanna	268	GINATRICOT	blouse	CERNAYA MAKARONKA S VIREZOM NA SPINE	4.00	27.00	5.00	0	1		f	f
+2018-12-24 10:10:21.189927-05	2018-12-24 10:10:21.189957-05	rosanna	269	GINATRICOT	blouse	SHIFONOVAYA SIRENEVAYA BLUZKA S VALANOM	16.00	42.00	4.00	0	1		f	f
+2018-12-24 10:11:19.630489-05	2018-12-24 10:11:19.630515-05	rosanna	270	GINATRICOT	blouse	CERNAYA KOFTA LOVE	10.00	32.00	7.00	0	1		f	f
+2018-12-24 10:12:05.285532-05	2018-12-24 10:12:05.285559-05	rosanna	271	GINATRICOT	Pant	KOJENNIE LEGGENCI	12.00	42.00	4.00	0	1		f	f
+2018-12-24 10:12:40.185297-05	2018-12-24 10:12:40.185327-05	rosanna	521	RUS	платье	Платье "Декларе" (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 10:12:41.925786-05	2018-12-24 10:12:41.925813-05	rosanna	272	GINATRICOT	None	None	12.00	36.00	4.00	0	1		f	f
+2018-12-24 10:13:13.218688-05	2018-12-24 10:13:13.218716-05	rosanna	522	RUS	платье	Платье "Декларе" (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 10:14:03.320467-05	2018-12-24 10:14:03.320495-05	rosanna	523	RUS	платье	Платье "Декларе" (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 10:15:06.160498-05	2018-12-24 10:15:06.160526-05	rosanna	524	RUS	платье	Платье "Тамила" (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 10:16:25.486801-05	2018-12-24 10:16:25.486828-05	rosanna	276	GINATRICOT	blouse	CERNAYA MAKARONKA S KOLOKOLCHIKOM RUKOVOM	12.00	42.00	4.00	0	1		f	f
+2018-12-24 10:17:11.022316-05	2018-12-24 10:17:11.022342-05	rosanna	277	GINATRICOT	blouse	PLESSEROVANNAYA KOFTA S ODNIM RUKOVOM	6.00	36.00	4.00	0	2		f	f
+2018-12-24 10:17:50.481992-05	2018-12-24 10:17:50.482019-05	rosanna	278	GINATRICOT	blouse	GOLUBAYA SHIFONOVAYA BLUZKA	12.00	36.00	4.00	0	1		f	f
+2018-12-24 10:18:55.418304-05	2018-12-24 10:18:55.418331-05	rosanna	525	RUS	платье	Платье "Грейди" (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 10:19:18.287364-05	2018-12-24 10:19:18.287391-05	rosanna	283	LINDEX	scarf	SHARF MOZAIKA	10.00	20.00	0.00	0	1		f	f
+2018-12-13 05:43:59.112177-05	2018-12-24 10:19:55.148441-05	rosanna	1682	TUR	платье	черное с желтым стилем версаче	38.00	88.00	0.00	M	1	clothes/1682/035.PNG	t	f
+2018-12-24 10:20:03.56882-05	2018-12-24 10:20:03.568847-05	rosanna	284	H&M	scarf	SHARF ROMBI	6.00	25.00	0.00	0	1		f	f
+2018-12-24 10:26:41.624538-05	2018-12-24 10:26:41.624565-05	rosanna	289	SWEDEN	blouse	CAPRI	10.00	42.00	5.00	0	4		f	f
+2018-12-24 10:27:25.36722-05	2018-12-24 10:27:25.367251-05	rosanna	290	SWEDEN	pant	X/B bruki	10.00	38.00	5.00	0	3		f	f
+2018-12-24 10:28:21.283286-05	2018-12-24 10:28:21.283313-05	rosanna	526	RUS	платье	Платье "Грейди" (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 10:28:59.993224-05	2018-12-24 10:28:59.993252-05	rosanna	292	POGUE	jacket	KURTKI VETROVKI	16.00	58.00	8.00	0	4		f	f
+2018-12-24 10:29:45.686571-05	2018-12-24 10:29:45.686601-05	rosanna	527	RUS	платье	Платье "Аксинья" (48)	42.00	110.00	30.00	48	1		f	f
+2018-12-24 10:29:53.599185-05	2018-12-24 10:29:53.599212-05	rosanna	293	GINATRICOT	blouse	SHIFON BLUZKA S PLESSE RUKOVOM	16.00	53.00	5.00	0	2		f	f
+2018-12-24 10:31:09.330768-05	2018-12-24 10:31:09.330796-05	rosanna	294	GINATRICOT	dress	VELUROVAYA PLATIE VECERNEE	30.00	63.00	6.00	0	2		f	f
+2018-12-24 10:31:43.626242-05	2018-12-24 10:31:43.626273-05	rosanna	295	GINATRICOT	blouse	ATLASNAYA POLOSATAYA LODOCHKA BLUZKA	20.00	62.00	7.00	0	2		f	f
+2018-12-24 10:32:12.525265-05	2018-12-24 10:32:12.525292-05	rosanna	528	RUS	платье	Платье Эмма,индиго (46)	42.00	100.00	30.00	46	1		f	f
+2018-12-24 10:32:35.350848-05	2018-12-24 10:32:35.350919-05	rosanna	296	GINATRICOT	dress	CERNOE SHIFONOVOE PLATIE	16.00	63.00	6.00	0	1		f	f
+2018-12-24 10:33:21.259583-05	2018-12-24 10:33:21.259609-05	rosanna	297	GINATRICOT	blouse	GOLUBAJA NA REZINKE VALAN RUKAV	14.00	48.00	6.00	0	1		f	f
+2018-12-24 10:34:11.987379-05	2018-12-24 10:34:11.987406-05	rosanna	299	GINATRICOT	None	PAULA LACE	16.00	42.00	4.00	0	1		f	f
+2018-12-24 10:35:20.669642-05	2018-12-24 10:35:20.66967-05	rosanna	529	RUS	платье	Платье Эмма,индиго (50)	42.00	100.00	30.00	50	1		f	f
+2018-12-24 10:37:22.19934-05	2018-12-24 10:37:22.19937-05	rosanna	530	RUS	платье	Платье "Оптима" (52)	42.00	110.00	30.00	52	1		f	f
+2018-12-24 10:37:27.16738-05	2018-12-24 10:37:27.167407-05	rosanna	301	GINATRICOT	None	LISEN WRAP	12.00	42.00	4.00	0	1		f	f
+2018-12-24 10:37:56.22278-05	2018-12-24 10:37:56.222807-05	rosanna	531	RUS	платье	Платье "Оптима" (52)	42.00	110.00	30.00	52	1		f	f
+2018-12-24 10:38:00.388656-05	2018-12-24 10:38:00.388682-05	rosanna	302	GINATRICOT	blouse	DEBBIE BLOUSE	20.00	48.00	6.00	0	1		f	f
+2018-12-24 10:38:48.767183-05	2018-12-24 10:38:48.76721-05	rosanna	303	GINATRICOT	None	MILAN BELII	20.00	57.00	5.00	0	1		f	f
+2018-12-24 10:39:07.974789-05	2018-12-24 10:39:07.974816-05	rosanna	532	RUS	платье	Платье "Кармелла" (46)	42.00	100.00	30.00	46	1		f	f
+2018-12-24 10:39:22.249335-05	2018-12-24 10:39:22.249362-05	rosanna	304	BIK BOK	None	REESE	16.00	48.00	6.00	0	1		f	f
+2018-12-24 10:43:13.417004-05	2018-12-24 10:43:13.417031-05	rosanna	305	BIK BOK	None	KARIANNE	20.00	62.00	4.00	0	3		f	f
+2018-12-24 10:13:45.657569-05	2018-12-25 10:31:20.042787-05	rosanna	275	GINATRICOT	Sweater	CERNAYA ANGORKA S BOLSHIM MANJETOM	12.00	32.00	0.00	0	1		f	f
+2018-12-24 10:18:36.707711-05	2018-12-25 10:34:05.378732-05	rosanna	279	H&M	scarf	SHARF XAKI	2.00	15.00	0.00	0	3		f	f
+2018-12-24 10:24:28.461775-05	2018-12-25 10:37:32.888103-05	rosanna	287	CLİQUE	shirt	RUBASHKI 2 KARMANA BEJ+ KRASNII	2.00	15.00	0.00	0	7		f	f
+2018-12-24 10:28:10.511466-05	2018-12-25 10:42:12.547443-05	rosanna	291	SWEDEN	pant	SPORTIVNIE FINKI	14.00	25.00	0.00	0	1		f	f
+2018-12-24 10:20:57.255078-05	2018-12-25 11:53:21.13708-05	rosanna	285	CLİQUE	shirt	TENISKA (RAZNIE CVETA) S PUGOVKOI NA SHEI	8.00	15.00	0.00	0	13		f	f
+2018-12-24 09:56:46.911372-05	2018-12-28 09:33:43.966477-05	rosanna	250	H&M	shirt	JELTII RUKAF NA ZAVAZKE 016	9.00	30.00	3.00	0	1		f	f
+2018-12-24 09:57:29.212533-05	2018-12-28 09:35:27.284985-05	rosanna	251	H&M	shirt	BELAYA SOROCKA S ZOLOTIM 105	12.00	42.00	4.00	0	2		f	f
+2018-12-24 09:59:50.021654-05	2018-12-28 09:39:23.723851-05	rosanna	255	H&M	shirt	BELAYA MAIKA S ZELENNIM CVETKOM 010	13.00	38.00	4.00	0	2		f	f
+2018-12-24 10:01:53.248447-05	2018-12-28 09:49:23.347696-05	rosanna	257	GINATRICOT	skirt	UBKA PLESSE	20.00	55.00	5.00	0	1		f	t
+2018-12-24 10:00:24.166131-05	2018-12-28 09:48:49.979749-05	rosanna	256	H&M	shirt	BELAJA SOROCHKA S REZINOVII MANJET S21	12.00	42.00	4.00	0	1		t	f
+2018-12-24 10:04:42.509316-05	2018-12-28 09:53:09.251779-05	rosanna	261	GINATRICOT	blouse	VELUROVAYA KOFTA	8.00	38.00	4.00	0	2		f	f
+2018-12-24 10:05:25.590667-05	2018-12-28 09:53:46.700615-05	rosanna	263	GINATRICOT	blouse	ATLASNAYA ROZOVAYA BLUZKA	11.00	43.00	5.00	0	1		t	f
+2018-12-24 10:08:22.30883-05	2018-12-28 09:59:16.354427-05	rosanna	267	GINATRICOT	blouse	ROZOVAYA VADOLAZKA S SHIROKIMI RUKOVAMI	11.00	38.00	4.00	0	1		f	f
+2018-12-24 10:07:09.83873-05	2018-12-28 09:56:49.316223-05	rosanna	265	GINATRICOT	blouse	GIPUROVAYA ROZOVAYA KOFTA	10.00	30.00	0.00	0	1		f	f
+2018-12-24 10:44:41.404109-05	2018-12-24 10:44:41.404136-05	rosanna	307	ZARA	blouse	CERNAYA MAKARONKA MANJET KAMUSHKI 800	12.00	42.00	4.00	0	1		f	f
+2018-12-24 10:45:42.416933-05	2018-12-24 10:45:42.416963-05	rosanna	308	ZARA	BELAYA MAIKA S CERNIMI KRILISH	shirt	12.00	36.00	4.00	0	2		f	f
+2018-12-24 10:45:51.816124-05	2018-12-24 10:45:51.816153-05	rosanna	534	RUS	платье	Платье "Деметра" (54)	42.00	110.00	30.00	54	1		f	f
+2018-12-24 10:46:48.749555-05	2018-12-24 10:46:48.749582-05	rosanna	309	ZARA	None	ROZOVAJA 620+ KRASNII 600	16.00	36.00	4.00	0	1		f	f
+2018-12-24 10:48:42.397492-05	2018-12-24 10:48:42.397518-05	rosanna	310	ZARA	Polo	Polo	10.00	43.00	5.00	0	4		f	f
+2018-12-24 10:51:29.218164-05	2018-12-24 10:51:29.218192-05	rosanna	535	RUS	платье	Платье "Шарлотта" (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 10:52:04.236219-05	2018-12-24 10:52:04.236246-05	rosanna	313	GINATRICOT	skirt	CINA SKIRT	16.00	42.00	4.00	0	1		f	f
+2018-12-24 10:54:30.550988-05	2018-12-24 10:54:30.551015-05	rosanna	918005	H&M	None	None	20.00	45.00	5.00	0	1		f	f
+2018-12-24 10:54:55.981953-05	2018-12-24 10:54:55.981984-05	rosanna	918043	H&M	None	None	13.00	45.00	5.00	0	1		f	f
+2018-12-24 10:55:25.886056-05	2018-12-24 10:55:25.886083-05	rosanna	918034	H&M	None	None	20.00	45.00	5.00	0	1		f	f
+2018-12-24 10:55:55.881614-05	2018-12-24 10:55:55.881644-05	rosanna	918024	H&M	None	None	20.00	48.00	3.00	0	1		f	f
+2018-12-24 10:59:19.66261-05	2018-12-24 10:59:19.662636-05	rosanna	918026	H&M	None	norv org	13.00	48.00	3.00	0	1		f	f
+2018-12-24 11:01:18.082666-05	2018-12-24 11:01:18.082693-05	rosanna	536	RUS	платье	Платье "Шарлотта" (46)	42.00	100.00	30.00	46	1		f	f
+2018-12-24 11:02:51.764261-05	2018-12-24 11:02:51.764288-05	rosanna	537	RUS	платье	Платье "Климентина" (56)	42.00	100.00	30.00	56	1		f	f
+2018-12-24 11:02:52.228762-05	2018-12-24 11:02:52.22879-05	rosanna	918023	H&M	dress	cer plat bantik	30.00	66.00	6.00	0	1		f	f
+2018-12-24 11:03:24.842249-05	2018-12-24 11:03:24.842276-05	rosanna	538	RUS	платье	Платье "Климентина" (52)	42.00	100.00	30.00	52	1		f	f
+2018-12-24 11:03:26.575661-05	2018-12-24 11:03:26.575688-05	rosanna	918044	H&M	None	placj bej ctoika vorot	30.00	93.00	8.00	0	1		f	f
+2018-12-24 11:03:57.398076-05	2018-12-24 11:03:57.398109-05	rosanna	918019	H&M	None	None	13.00	42.00	4.00	0	1		f	f
+2018-12-24 11:04:27.340254-05	2018-12-24 11:04:27.340285-05	rosanna	539	RUS	платье	Платье "Эрика" (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 11:04:36.942707-05	2018-12-24 11:04:36.942741-05	rosanna	918010	H&M	dress	cer plat	23.00	53.00	3.00	0	1		f	f
+2018-12-24 11:05:14.738786-05	2018-12-24 11:05:14.738847-05	rosanna	918053	H&M	dress	cer plat	23.00	53.00	3.00	0	1		f	f
+2018-12-24 11:05:29.273637-05	2018-12-24 11:05:29.273667-05	rosanna	540	RUS	платье	Платье"Бригелла"цветы на васильковом фоне (54)	42.00	100.00	30.00	54	1		f	f
+2018-12-24 11:05:51.354214-05	2018-12-24 11:05:51.354242-05	rosanna	918033	H&M	dress	cer plat	23.00	53.00	3.00	0	1		f	f
+2018-12-24 11:06:01.116971-05	2018-12-24 11:06:01.117002-05	rosanna	541	RUS	платье	ķПлатье"Бригелла"цветы на васильковом фоне (48)	42.00	100.00	30.00	48	1		f	f
+2018-12-24 11:06:26.012189-05	2018-12-24 11:06:26.012216-05	rosanna	918021	H&M	pant	bruk kletka	30.00	62.00	7.00	0	1		f	f
+2018-12-24 11:06:47.748142-05	2018-12-24 11:06:47.748169-05	rosanna	542	RUS	платье	П-е "Мадлен"цветы на синем фоне (54)	42.00	110.00	30.00	54	1		f	f
+2018-12-24 11:07:05.566703-05	2018-12-24 11:07:05.56673-05	rosanna	918036	H&M	None	zel dins	10.00	48.00	3.00	0	1		f	f
+2018-12-24 11:07:37.010605-05	2018-12-24 11:07:37.010633-05	rosanna	918006	H&M	dress	platye kletka	50.00	92.00	7.00	0	1		f	f
+2018-12-24 11:08:54.681744-05	2018-12-24 11:08:54.681786-05	rosanna	918002	H&M	shirt	rub polos	23.00	48.00	3.00	0	1		f	f
+2018-12-24 11:08:10.544953-05	2018-12-24 11:09:16.21347-05	rosanna	544	RUS	платье	Платье "Венеция" (50) темно-синее	42.00	110.00	30.00	50	1		f	f
+2018-12-24 11:09:22.227705-05	2018-12-24 11:09:22.227733-05	rosanna	918046	H&M	blouse	kras koft	20.00	42.00	2.00	0	1		f	f
+2018-12-24 11:09:53.301448-05	2018-12-24 11:09:53.301475-05	rosanna	918045	H&M	blouse	kras koft	20.00	42.00	2.00	0	1		f	f
+2018-12-24 11:07:35.884606-05	2018-12-24 11:10:31.900366-05	rosanna	543	RUS	платье	Платье "Венеция" (48) темно-синее	42.00	110.00	30.00	48	1		f	f
+2018-12-24 11:10:38.442256-05	2018-12-24 11:10:38.442282-05	rosanna	918007	H&M	dress	plat pub zel	40.00	62.00	4.00	0	1		f	f
+2018-12-24 11:11:05.795109-05	2018-12-24 11:11:05.795136-05	rosanna	545	RUS	платье	Платье Александра,чернильно-синее (50)	42.00	110.00	30.00	50	1		f	f
+2018-12-24 11:11:42.027799-05	2018-12-24 11:11:42.027829-05	rosanna	546	RUS	платье	Платье Александра,чернильно-синее (48)	42.00	110.00	0.00	48	1		f	f
+2018-12-24 11:13:17.122457-05	2018-12-24 11:13:17.122484-05	rosanna	918037	H&M	blouse	bel bluz	20.00	42.00	4.00	0	1		f	f
+2018-12-24 11:13:55.941119-05	2018-12-24 11:13:55.941147-05	rosanna	918059	H&M	jacket	sin pidjak	30.00	62.00	2.00	0	1		f	f
+2018-12-24 11:14:29.409354-05	2018-12-24 11:14:29.409385-05	rosanna	918025	H&M	jacket	sin pidjak	30.00	62.00	2.00	0	1		f	f
+2018-12-24 11:14:56.276406-05	2018-12-24 11:14:56.276443-05	rosanna	547	RUS	платье	Платье "Пиаф" (52)	110.00	30.00	30.00	52	1		f	f
+2018-12-24 11:15:30.242368-05	2018-12-24 11:15:30.242396-05	rosanna	548	RUS	платье	Платье "Пиаф" (50)	42.00	110.00	30.00	50	1		f	f
+2018-12-24 11:18:52.524541-05	2018-12-24 11:18:52.524569-05	rosanna	552	RUS	платье	Платье "Жозефина"темно-синее (46)	42.00	110.00	30.00	46	1		f	f
+2018-12-24 11:15:22.73716-05	2018-12-24 11:16:38.226861-05	rosanna	918011	H&M	None	zel plaj	40.00	81.00	6.00	0	1		f	f
+2018-12-24 11:16:55.168393-05	2018-12-24 11:16:55.168424-05	rosanna	549	RUS	платье	Платье "Венера" (46)	42.00	110.00	30.00	46	1		f	f
+2018-12-24 11:17:10.413962-05	2018-12-24 11:17:10.413991-05	rosanna	918018	H&M	None	sin kapuj	20.00	52.00	4.00	0	1		f	f
+2018-12-24 11:17:25.451658-05	2018-12-24 11:17:25.451685-05	rosanna	550	RUS	платье	Платье "Венера" (48)	42.00	110.00	30.00	48	1		f	f
+2018-12-24 11:17:52.842638-05	2018-12-24 11:17:52.842665-05	rosanna	551	RUS	платье	Платье "Венера" (52)	42.00	110.00	30.00	52	1		f	f
+2018-12-24 11:19:26.043481-05	2018-12-24 11:19:26.04351-05	rosanna	553	RUS	платье	Платье "Жозефина"темно-синее (52)	42.00	110.00	30.00	52	1		f	f
+2018-12-24 11:20:43.298102-05	2018-12-24 11:20:43.298129-05	rosanna	918035	H&M	sweater	seren svit	13.00	35.00	2.00	0	1		f	f
+2018-12-24 11:21:12.284786-05	2018-12-24 11:21:12.284813-05	rosanna	918022	H&M	None	bodi	10.00	33.00	5.00	0	1		f	f
+2018-12-24 11:21:46.779124-05	2018-12-24 11:21:46.779156-05	rosanna	918058	H&M	None	golub s rushkami	20.00	42.00	4.00	0	1		f	f
+2018-12-24 11:22:14.403602-05	2018-12-24 11:22:14.403632-05	rosanna	918060	H&M	None	polos gol	23.00	42.00	4.00	0	1		f	f
+2018-12-24 11:22:47.608078-05	2018-12-24 11:22:47.608105-05	rosanna	918057	H&M	None	cer prosh rub	30.00	66.00	6.00	0	1		f	f
+2018-12-24 11:23:23.126616-05	2018-12-24 11:23:23.126643-05	rosanna	918020	H&M	dress	dlin plat sin	35.00	83.00	8.00	0	1		f	f
+2018-12-24 11:24:24.55849-05	2018-12-24 11:24:24.558517-05	rosanna	918066	GINATRICOT	None	hanna	10.00	32.00	4.00	0	1		f	f
+2018-12-24 11:24:53.830747-05	2018-12-24 11:24:53.830773-05	rosanna	918065	GINATRICOT	None	hanna	10.00	32.00	3.00	0	1		f	f
+2018-12-24 11:11:13.168478-05	2018-12-25 11:00:51.52914-05	rosanna	918041	H&M	sweater	polos sviter	13.00	35.00	0.00	0	1		f	f
+2018-12-24 11:11:58.936903-05	2018-12-25 11:03:50.877013-05	rosanna	918047	H&M	sweater	siniy sviterok	10.00	30.00	0.00	0	1		f	f
+2018-12-24 11:12:32.816839-05	2018-12-25 11:04:19.066713-05	rosanna	918038	H&M	sweater	siniy sviterok	10.00	30.00	0.00	0	1		f	f
+2018-12-24 11:18:18.470823-05	2018-12-25 11:05:17.232236-05	rosanna	918054	H&M	sweater	ser svit	13.00	35.00	0.00	0	1		f	f
+2018-12-24 10:57:50.606895-05	2018-12-25 11:37:17.51382-05	rosanna	918009	H&M	None	norv org	13.00	30.00	0.00	0	1		f	f
+2018-12-24 11:01:04.071408-05	2018-12-25 11:37:42.877985-05	rosanna	918052	H&M	None	None	13.00	30.00	0.00	0	1		f	f
+2018-12-24 11:01:41.519438-05	2018-12-25 11:44:38.146927-05	rosanna	918039	H&M	None	roz kapush	20.00	35.00	0.00	0	1		f	f
+2018-12-24 11:02:16.372682-05	2018-12-25 11:45:05.697083-05	rosanna	918008	H&M	None	roz kapush	20.00	35.00	5.00	0	1		f	f
+2018-12-24 10:44:57.201598-05	2018-12-28 04:18:33.59672-05	admin	533	RUS	платье	Платье "Деметра" (56)	42.00	77.00	0.00	56	1		t	f
+2018-12-24 11:17:49.40049-05	2018-12-28 06:51:21.113033-05	rosanna	918017	H&M	dress	sin plat vec ajur	35.00	50.00	0.00	0	1		t	f
+2018-12-24 11:29:34.026316-05	2018-12-24 11:29:34.026343-05	rosanna	918086	GINATRICOT	dress	rory kjole	18.00	62.00	7.00	0	1		f	f
+2018-12-24 11:30:05.402742-05	2018-12-24 11:30:05.402769-05	rosanna	918085	GINATRICOT	dress	Julia kjole	18.00	62.00	7.00	0	1		f	f
+2018-12-24 11:30:50.344642-05	2018-12-24 11:30:50.34467-05	rosanna	918084	GINATRICOT	dress	Julia kjole	18.00	62.00	7.00	0	1		f	f
+2018-12-24 11:31:17.993666-05	2018-12-24 11:31:17.993695-05	rosanna	918083	GINATRICOT	dress	Julia kjole	18.00	62.00	7.00	0	1		f	f
+2018-12-24 11:32:29.148458-05	2018-12-24 11:32:29.148486-05	rosanna	918050	GINATRICOT	pant	Veronica bukse	18.00	60.00	5.00	0	1		f	f
+2018-12-24 11:32:58.256739-05	2018-12-24 11:32:58.256766-05	rosanna	918031	GINATRICOT	pant	Veronica bukse	18.00	60.00	5.00	0	1		f	f
+2018-12-24 11:37:39.957977-05	2018-12-24 11:37:39.958012-05	rosanna	918087	GINATRICOT	Jeans	brigitte jeans	35.00	90.00	5.00	0	1		f	f
+2018-12-24 11:38:13.857037-05	2018-12-24 11:38:13.857067-05	rosanna	918029	GINATRICOT	suite	aino suit	25.00	80.00	5.00	0	1		f	f
+2018-12-24 11:38:52.192743-05	2018-12-24 11:38:52.19277-05	rosanna	918088	GINATRICOT	Jeans	brigitte jeans	35.00	90.00	5.00	0	1		f	f
+2018-12-24 11:39:30.236921-05	2018-12-24 11:39:30.236951-05	rosanna	918089	GINATRICOT	Jeans	brigitte jeans	35.00	90.00	5.00	0	1		f	f
+2018-12-24 14:59:49.106314-05	2018-12-24 14:59:49.106343-05	rosanna	918090	GINATRICOT	Jeans	brigitte jeans	35.00	90.00	5.00	0	1		f	f
+2018-12-24 15:00:19.669848-05	2018-12-24 15:00:19.670125-05	rosanna	918094	GINATRICOT	Jeans	brigitte jeans	35.00	90.00	5.00	0	1		f	f
+2018-12-24 15:00:49.832433-05	2018-12-24 15:00:49.83246-05	rosanna	918093	GINATRICOT	Jeans	elle jeans	30.00	90.00	5.00	0	1		f	f
+2018-12-24 15:01:17.003595-05	2018-12-24 15:01:17.003622-05	rosanna	918092	GINATRICOT	Jeans	brigitte jeans	30.00	90.00	5.00	0	1		f	f
+2018-12-24 15:01:51.422716-05	2018-12-24 15:01:51.422743-05	rosanna	918091	GINATRICOT	Jeans	brigitte jeans	30.00	90.00	5.00	0	1		f	f
+2018-12-24 15:02:19.878255-05	2018-12-24 15:02:19.878282-05	rosanna	918095	GINATRICOT	dress	janet dress	25.00	80.00	5.00	0	1		f	f
+2018-12-24 15:03:07.824493-05	2018-12-24 15:03:07.824522-05	rosanna	918096	GINATRICOT	None	bella	22.00	62.00	7.00	0	1		f	f
+2018-12-24 15:03:38.526538-05	2018-12-24 15:03:38.526564-05	rosanna	918097	GINATRICOT	None	bella	22.00	62.00	7.00	0	1		f	f
+2018-12-24 15:04:06.214745-05	2018-12-24 15:04:06.214771-05	rosanna	918098	GINATRICOT	dress	ada dress	30.00	92.00	7.00	0	1		f	f
+2018-12-24 15:04:36.970546-05	2018-12-24 15:04:36.970573-05	rosanna	918102	GINATRICOT	None	sabine	20.00	72.00	7.00	0	1		f	f
+2018-12-24 15:05:07.916799-05	2018-12-24 15:05:07.91683-05	rosanna	918101	GINATRICOT	None	sabine	20.00	72.00	7.00	0	1		f	f
+2018-12-24 15:05:52.977712-05	2018-12-24 15:05:52.977739-05	rosanna	918100	GINATRICOT	None	karolona bliu	20.00	62.00	4.00	0	1		f	f
+2018-12-24 15:06:19.779976-05	2018-12-24 15:06:19.780003-05	rosanna	918099	GINATRICOT	None	ida	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:06:48.742735-05	2018-12-24 15:06:48.742762-05	rosanna	918106	GINATRICOT	None	ida	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:07:24.422906-05	2018-12-24 15:07:24.422937-05	rosanna	918104	GINATRICOT	None	leila	25.00	80.00	5.00	0	1		f	f
+2018-12-24 15:07:48.333098-05	2018-12-24 15:07:48.333125-05	rosanna	918103	GINATRICOT	None	leila	25.00	80.00	5.00	0	1		f	f
+2018-12-24 15:08:40.796558-05	2018-12-24 15:08:40.796585-05	rosanna	918107	GINATRICOT	None	jemima	20.00	52.00	7.00	0	1		f	f
+2018-12-24 15:09:11.743611-05	2018-12-24 15:09:11.743643-05	rosanna	918108	GINATRICOT	None	jemima	20.00	52.00	7.00	0	1		f	f
+2018-12-24 15:09:59.60209-05	2018-12-24 15:09:59.602118-05	rosanna	918110	GINATRICOT	None	jemima	20.00	52.00	7.00	0	1		f	f
+2018-12-24 15:10:24.724844-05	2018-12-24 15:10:24.724903-05	rosanna	918109	GINATRICOT	None	jemima	20.00	52.00	7.00	0	1		f	f
+2018-12-24 15:11:24.280069-05	2018-12-24 15:11:24.280096-05	rosanna	918117	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:11:54.694587-05	2018-12-24 15:11:54.694614-05	rosanna	918118	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:12:32.590385-05	2018-12-24 15:12:32.590412-05	rosanna	918111	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:12:55.869576-05	2018-12-24 15:12:55.869604-05	rosanna	918112	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:13:20.91343-05	2018-12-24 15:13:20.913456-05	rosanna	918114	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:13:42.211314-05	2018-12-24 15:13:42.211341-05	rosanna	918119	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:14:02.648318-05	2018-12-24 15:14:02.648346-05	rosanna	918120	GINATRICOT	None	sophia	40.00	120.00	10.00	0	1		f	f
+2018-12-24 15:14:47.38602-05	2018-12-24 15:14:47.386047-05	rosanna	918129	H&M	none	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:15:21.881642-05	2018-12-24 15:15:21.88167-05	rosanna	918122	H&M	None	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:15:45.838079-05	2018-12-24 15:15:45.838106-05	rosanna	918123	H&M	None	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:17:28.000907-05	2018-12-24 15:17:28.000941-05	rosanna	918121	H&M	None	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:16:16.118649-05	2018-12-24 15:17:53.851118-05	rosanna	918127	H&M	None	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:16:58.380544-05	2018-12-24 15:18:15.760278-05	rosanna	918124	H&M	None	kurt na riz	10.00	52.00	7.00	0	1		f	f
+2018-12-24 15:19:16.181203-05	2018-12-24 15:19:16.181231-05	rosanna	918126	kappahl	None	None	45.00	120.00	15.00	0	1		f	f
+2018-12-24 15:19:42.629092-05	2018-12-24 15:19:42.629119-05	rosanna	918128	kappahl	None	None	45.00	120.00	15.00	0	1		f	f
+2018-12-24 15:20:38.860397-05	2018-12-24 15:20:38.860423-05	rosanna	918131	LACE	None	let mish + bejur	40.00	80.00	5.00	0	1		f	f
+2018-12-24 15:21:14.668922-05	2018-12-24 15:21:14.668952-05	rosanna	918137	LACE	None	let mish + bejur	40.00	80.00	5.00	0	1		f	f
+2018-12-24 15:22:30.38537-05	2018-12-24 15:22:30.385397-05	rosanna	918134	LACE	None	let mish + bejur	40.00	80.00	5.00	0	1		f	f
+2018-12-24 15:23:18.323447-05	2018-12-24 15:23:18.32348-05	rosanna	918132	LACE	None	let mish + bejur	40.00	80.00	5.00	0	1		f	f
+2018-12-24 15:24:18.529113-05	2018-12-24 15:24:18.52914-05	rosanna	918136	LACE	None	cer kosta	20.00	50.00	5.00	0	1		f	f
+2018-12-24 15:25:01.296552-05	2018-12-24 15:25:01.29658-05	rosanna	1001	LACE	None	cer kosta	20.00	50.00	5.00	0	1		f	f
+2018-12-24 15:25:45.036631-05	2018-12-24 15:27:16.591211-05	rosanna	1049	LINDEX	None	kard cer bel	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:26:20.10644-05	2018-12-24 15:27:40.992649-05	rosanna	1033	LINDEX	None	kard cer bel	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:28:43.195622-05	2018-12-24 15:28:43.195649-05	rosanna	1017	LINDEX	None	kurt v shax	40.00	73.00	5.00	0	1		f	f
+2018-12-24 15:30:51.4314-05	2018-12-24 15:30:51.431427-05	rosanna	1003	LINDEX	None	kar kras	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:33:50.559923-05	2018-12-24 15:33:50.559953-05	rosanna	1018	LINDEX	none	kar kras	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:34:26.010014-05	2018-12-24 15:34:26.010047-05	rosanna	1034	LINDEX	None	bel plat vish	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:35:11.234398-05	2018-12-24 15:35:11.234428-05	rosanna	1050	LINDEX	None	bel plat vish	30.00	68.00	6.00	0	1		f	f
+2018-12-24 15:38:09.275444-05	2018-12-24 15:38:09.275471-05	rosanna	1013	PM	dress	cer plat proshva	40.00	100.00	8.00	0	1		f	f
+2018-12-24 15:38:39.610946-05	2018-12-24 15:38:39.61098-05	rosanna	1009	PM	dress	cer plat proshva	40.00	100.00	8.00	0	1		f	f
+2018-12-24 15:39:42.31911-05	2018-12-24 15:39:42.319137-05	rosanna	1008	PM	None	bel proshva kof	20.00	62.00	4.00	0	1		f	f
+2018-12-24 15:40:11.924665-05	2018-12-24 15:40:11.924694-05	rosanna	1007	PM	None	bel proshva kof	20.00	62.00	4.00	0	1		f	f
+2018-12-24 15:40:49.821467-05	2018-12-24 15:40:49.821495-05	rosanna	1006	PM	None	ponco roz	30.00	92.00	7.00	0	1		f	f
+2018-12-24 15:41:15.218852-05	2018-12-24 15:41:15.218914-05	rosanna	1005	PM	None	ponco roz	30.00	92.00	7.00	0	1		f	f
+2018-12-24 15:43:26.871483-05	2018-12-24 15:43:26.871516-05	rosanna	1031	H&M	coat	kort kape goluboye palto	70.00	157.00	17.00	0	1		f	f
+2018-12-24 11:26:00.937434-05	2018-12-25 11:10:22.189344-05	rosanna	918068	GINATRICOT	None	malva bag	18.00	40.00	0.00	0	1		f	f
+2018-12-24 11:26:32.057123-05	2018-12-25 11:10:52.717774-05	rosanna	918082	GINATRICOT	None	malva bag	18.00	40.00	5.00	0	1		f	f
+2018-12-24 11:27:14.015736-05	2018-12-25 11:11:11.284593-05	rosanna	918080	GINATRICOT	None	malva bag	18.00	40.00	0.00	0	1		f	f
+2018-12-24 11:28:56.087818-05	2018-12-25 11:11:33.329105-05	rosanna	918069	GINATRICOT	None	malva bag	18.00	40.00	0.00	0	1		f	f
+2018-12-24 15:35:45.383372-05	2018-12-25 11:17:06.810757-05	rosanna	1015	PM	sweater	zel svitorok	25.00	45.00	0.00	0	1		f	f
+2018-12-24 15:36:21.049933-05	2018-12-25 11:17:29.230478-05	rosanna	1010	PM	sweater	zel svitorok	25.00	45.00	0.00	0	1		f	f
+2018-12-24 15:37:17.591599-05	2018-12-25 11:17:53.072665-05	rosanna	1014	PM	sweater	zel svitorok	25.00	45.00	0.00	0	1		f	f
+2018-12-24 11:31:44.20483-05	2018-12-28 06:50:34.241988-05	rosanna	918049	GINATRICOT	dress	Julia kjole	18.00	50.00	0.00	0	1		t	f
+2018-12-24 15:45:22.239012-05	2018-12-24 15:45:22.239039-05	rosanna	1030	H&M	coat	kort kape goluboye palto	70.00	157.00	17.00	0	1		f	f
+2018-12-24 15:51:09.637961-05	2018-12-24 15:51:09.637988-05	rosanna	1028	H&M	sweater	kras sviter	25.00	50.00	2.00	0	1		f	f
+2018-12-24 15:52:10.772305-05	2018-12-24 15:52:10.772333-05	rosanna	1025	H&M	shirt	rubash gol v polosku	20.00	45.00	2.00	0	1		f	f
+2018-12-24 15:52:36.967045-05	2018-12-24 15:52:36.967076-05	rosanna	1024	H&M	shirt	rubash gol v polosku	20.00	45.00	2.00	0	1		f	f
+2018-12-24 15:53:09.338762-05	2018-12-24 15:53:09.338791-05	rosanna	1023	H&M	shirt	rubash gol v polosku	20.00	45.00	2.00	0	1		f	f
+2018-12-24 15:53:40.441177-05	2018-12-24 15:53:40.441203-05	rosanna	1022	H&M	shirt	rub v polus	25.00	50.00	3.00	0	1		f	f
+2018-12-24 15:54:40.937388-05	2018-12-24 15:54:40.937422-05	rosanna	1021	H&M	shirt	rub v polus	25.00	50.00	3.00	0	1		f	f
+2018-12-24 15:55:04.301463-05	2018-12-24 15:55:04.30149-05	rosanna	1020	H&M	shirt	rub v polus	25.00	50.00	3.00	0	1		f	f
+2018-12-24 15:55:32.542374-05	2018-12-24 15:55:32.5424-05	rosanna	1019	H&M	shirt	rub dlin	25.00	50.00	3.00	0	1		f	f
+2018-12-24 15:57:00.219575-05	2018-12-24 15:57:00.219606-05	rosanna	1044	H&M	none	disj kuryka	40.00	82.00	4.00	0	1		f	f
+2018-12-24 15:57:38.272493-05	2018-12-24 15:57:38.272521-05	rosanna	1043	H&M	None	disj kuryka	40.00	82.00	4.00	0	1		f	f
+2018-12-24 15:59:11.517703-05	2018-12-24 15:59:11.517736-05	rosanna	1041	H&M	hoodie	xudi zel	25.00	52.00	4.00	0	1		f	f
+2018-12-24 16:01:21.690014-05	2018-12-24 16:01:21.690042-05	rosanna	1036	H&M	jeans	cer djins zam	30.00	62.00	4.00	0	1		f	f
+2018-12-24 17:10:25.067656-05	2018-12-24 17:10:25.067683-05	rosanna	1035	H&M	bag	sumka	20.00	43.00	0.00	0	1		f	f
+2018-12-24 17:10:55.570724-05	2018-12-24 17:10:55.570752-05	rosanna	1004	H&M	jacket	seriy jacket	25.00	52.00	4.00	0	1		f	f
+2018-12-24 17:11:30.939926-05	2018-12-24 17:11:30.939956-05	rosanna	1057	H&M	jacket	seriy jacket	25.00	52.00	4.00	0	1		f	f
+2018-12-24 17:13:48.629105-05	2018-12-24 17:13:48.629132-05	rosanna	1064	H&M	shirt	cer shif rubashka	45.00	80.00	3.00	0	1		f	f
+2018-12-24 17:14:25.115976-05	2018-12-24 17:14:25.116004-05	rosanna	1063	H&M	None	golub proshva	30.00	60.00	2.00	0	1		f	f
+2018-12-24 17:14:54.476842-05	2018-12-24 17:14:54.476901-05	rosanna	1062	H&M	None	golub proshva	30.00	60.00	2.00	0	1		f	f
+2018-12-24 17:15:36.988018-05	2018-12-24 17:15:36.988047-05	rosanna	1061	H&M	blouse	gol v polosku kofta	15.00	40.00	3.00	0	1		f	f
+2018-12-24 17:16:12.044672-05	2018-12-24 17:16:12.044704-05	rosanna	1060	H&M	blouse	gol v polosku kofta	15.00	40.00	3.00	0	1		f	f
+2018-12-24 17:16:42.570259-05	2018-12-24 17:16:42.570285-05	rosanna	1058	H&M	blouse	bel shif kofta	15.00	40.00	3.00	0	1		f	f
+2018-12-24 17:17:06.910361-05	2018-12-24 17:17:06.910388-05	rosanna	1056	H&M	blouse	bel shif kofta	15.00	40.00	3.00	0	1		f	f
+2018-12-24 17:18:27.671601-05	2018-12-24 17:18:27.671628-05	rosanna	1054	H&M	shirt	roz maika s ajurom	15.00	30.00	2.00	0	1		f	f
+2018-12-24 17:18:54.456622-05	2018-12-24 17:18:54.456648-05	rosanna	1053	H&M	shirt	golub maika s ajurom	15.00	30.00	2.00	0	1		f	f
+2018-12-24 17:19:15.238486-05	2018-12-24 17:19:15.238514-05	rosanna	1052	H&M	shirt	golub maika s ajurom	15.00	30.00	2.00	0	1		f	f
+2018-12-24 17:19:47.290514-05	2018-12-24 17:19:47.290542-05	rosanna	1202	H&M	scarf	scarf	18.00	35.00	2.00	0	1		f	f
+2018-12-24 17:20:38.782382-05	2018-12-24 17:20:38.782409-05	rosanna	1204	H&M	scarf	scarf	15.00	30.00	2.00	0	1		f	f
+2018-12-24 17:21:19.584735-05	2018-12-24 17:21:19.584762-05	rosanna	1206	H&M	blouse	buta kofta	45.00	85.00	3.00	0	1		f	f
+2018-12-24 17:21:50.148514-05	2018-12-24 17:21:50.148542-05	rosanna	1207	H&M	blouse	buta kofta	45.00	85.00	3.00	0	1		f	f
+2018-12-24 17:22:16.40967-05	2018-12-24 17:22:16.409697-05	rosanna	1208	LINDEX	scarf	scarf bej	20.00	40.00	2.00	0	1		f	f
+2018-12-24 17:22:41.114621-05	2018-12-24 17:22:41.114663-05	rosanna	1209	LINDEX	scarf	scarf bej	20.00	40.00	2.00	0	1		f	f
+2018-12-24 17:23:11.370126-05	2018-12-24 17:23:11.370153-05	rosanna	1210	lindex	scarf	SHARF sin cvet c  kis	18.00	40.00	2.00	0	1		f	f
+2018-12-24 17:23:45.535369-05	2018-12-24 17:23:45.535402-05	rosanna	1211	LINDEX	scarf	SHARF sin cvet c  kis	18.00	40.00	2.00	0	1		f	f
+2018-12-24 17:24:12.807524-05	2018-12-24 17:24:12.807552-05	rosanna	1212	LINDEX	scarf	kosinka	18.00	35.00	2.00	0	1		f	f
+2018-12-24 17:20:14.620419-05	2018-12-24 17:25:39.830411-05	rosanna	1203	H&M	scarf	kosinka	18.00	35.00	2.00	0	1		f	f
+2018-12-24 17:26:27.38113-05	2018-12-24 17:26:27.381158-05	rosanna	1214	LINDEX	scarf	sharf siniy	20.00	40.00	5.00	0	1		f	f
+2018-12-24 17:26:54.197211-05	2018-12-24 17:26:54.197244-05	rosanna	1215	LINDEX	scarf	sharf siniy	20.00	45.00	5.00	0	1		f	f
+2018-12-24 17:27:51.571614-05	2018-12-24 17:27:51.571641-05	rosanna	1218	LINDEX	jacket	kurtka sin	30.00	63.00	5.00	0	1		f	f
+2018-12-24 17:28:26.993541-05	2018-12-24 17:28:26.993572-05	rosanna	1217	LINDEX	jacket	kurtka sin	30.00	64.00	6.00	0	1		f	f
+2018-12-24 17:28:58.145189-05	2018-12-24 17:28:58.145222-05	rosanna	1219	LINDEX	jacket	kurtka v shax	40.00	65.00	2.00	0	1		f	f
+2018-12-24 17:29:40.591354-05	2018-12-24 17:29:40.591381-05	rosanna	1220	LINDEX	bag	kurt v shax	40.00	66.00	3.00	0	1		f	f
+2018-12-24 17:30:29.284386-05	2018-12-24 17:30:29.284423-05	rosanna	1222	LINDEX	sweater	siren svit na zavaz	18.00	39.00	3.00	0	1		f	f
+2018-12-24 17:31:06.215941-05	2018-12-24 17:31:06.21597-05	rosanna	1223	LINDEX	pants	bruki lil	15.00	42.00	4.00	0	1		f	f
+2018-12-24 17:31:34.350742-05	2018-12-24 17:31:34.350769-05	rosanna	1224	LINDEX	pants	bruki lil	15.00	42.00	4.00	0	1		f	f
+2018-12-24 17:31:59.548017-05	2018-12-24 17:31:59.548047-05	rosanna	1225	LINDEX	pants	bruki lil	15.00	42.00	4.00	0	1		f	f
+2018-12-24 18:11:47.392318-05	2018-12-24 18:11:47.392347-05	rosanna	1226	LINDEX	jacket	pidjak	45.00	82.00	4.00	0	1		f	f
+2018-12-24 18:12:53.868746-05	2018-12-24 18:12:53.868775-05	rosanna	1227	LINDEX	jacket	pidjak	45.00	82.00	4.00	0	1		f	f
+2018-12-24 18:13:26.8357-05	2018-12-24 18:13:26.835727-05	rosanna	1230	LINDEX	jacket	pidjak	45.00	82.00	4.00	0	1		f	f
+2018-12-24 18:16:09.819585-05	2018-12-24 18:16:09.819613-05	rosanna	1231	GINATRICOT	None	ronja	28.00	62.00	4.00	0	1		f	f
+2018-12-24 18:16:42.108202-05	2018-12-24 18:16:42.108229-05	rosanna	1232	GINATRICOT	None	ronja	28.00	62.00	4.00	0	1		f	f
+2018-12-24 18:17:32.192655-05	2018-12-24 18:17:32.192683-05	rosanna	1233	GINATRICOT	None	milla	20.00	42.00	4.00	0	1		f	f
+2018-12-24 18:18:01.053391-05	2018-12-24 18:18:01.053419-05	rosanna	1234	GINATRICOT	None	ronja	20.00	42.00	4.00	0	1		f	f
+2018-12-24 18:18:50.333351-05	2018-12-24 18:18:50.333381-05	rosanna	1235	GINATRICOT	None	milla	20.00	42.00	4.00	0	1		f	f
+2018-12-24 18:22:17.33037-05	2018-12-24 18:22:17.330402-05	rosanna	1236	GINATRICOT	None	alma plesse	30.00	62.00	4.00	0	1		f	f
+2018-12-24 18:37:09.17485-05	2018-12-24 18:37:09.174912-05	rosanna	1237	GINATRICOT	None	alma plesse	30.00	62.00	4.00	0	1		f	f
+2018-12-24 18:38:41.987064-05	2018-12-24 18:38:41.987092-05	rosanna	1239	GINATRICOT	None	pia	18.00	38.00	2.00	0	1		f	f
+2018-12-24 18:39:14.018438-05	2018-12-24 18:39:14.018467-05	rosanna	1240	GINATRICOT	None	pia	18.00	39.00	3.00	0	1		f	f
+2018-12-24 18:40:24.375045-05	2018-12-24 18:40:24.375073-05	rosanna	1241	GINATRICOT	skirt	sally ubka	15.00	33.00	2.00	0	1		f	f
+2018-12-24 18:40:54.746587-05	2018-12-24 18:40:54.746616-05	rosanna	1242	GINATRICOT	None	flora	15.00	33.00	28.00	0	1		f	f
+2018-12-24 18:42:02.823195-05	2018-12-24 18:42:02.823224-05	rosanna	1243	GINATRICOT	None	flora	15.00	33.00	28.00	0	1		f	f
+2018-12-24 18:44:06.515607-05	2018-12-24 18:44:06.515635-05	rosanna	1244	GINATRICOT	None	flora	15.00	33.00	5.00	0	1		f	f
+2018-12-24 18:44:44.708909-05	2018-12-24 18:44:44.70894-05	rosanna	1245	GINATRICOT	jacket	elvira jaket	15.00	38.00	3.00	0	1		f	f
+2018-12-24 18:45:49.593972-05	2018-12-24 18:45:49.594-05	rosanna	1247	GINATRICOT	skirt	yubka exklusiv	30.00	62.00	4.00	0	1		f	f
+2018-12-24 18:46:47.363901-05	2018-12-24 18:46:47.363934-05	rosanna	1248	GINATRICOT	None	sammy roz	18.00	42.00	4.00	0	1		f	f
+2018-12-25 05:55:28.00686-05	2018-12-25 05:55:28.006924-05	rosanna	1249	GINATRICOT	None	sammy roz	18.00	42.00	4.00	0	1		f	f
+2018-12-25 05:55:49.791019-05	2018-12-25 05:55:49.791056-05	rosanna	1250	GINATRICOT	None	sammy roz	18.00	42.00	4.00	0	1		f	f
+2018-12-25 05:56:11.314016-05	2018-12-25 05:56:11.314045-05	rosanna	1251	GINATRICOT	None	sammy roz	18.00	42.00	4.00	0	1		f	f
+2018-12-24 15:50:41.173286-05	2018-12-25 11:21:06.279309-05	rosanna	1029	H&M	sweater	kras cer sviter	25.00	50.00	2.00	0	1		t	f
+2018-12-24 15:56:12.317109-05	2018-12-25 11:27:22.390512-05	rosanna	1046	H&M	sweater	bel sviter	25.00	40.00	0.00	0	1		f	f
+2018-12-24 15:59:46.483601-05	2018-12-25 11:28:10.303504-05	rosanna	1040	H&M	sweater	gol svitorok	25.00	40.00	0.00	0	1		f	f
+2018-12-24 16:00:12.590768-05	2018-12-25 11:28:29.006068-05	rosanna	1039	H&M	sweater	gol svitorok	25.00	40.00	0.00	0	1		f	f
+2018-12-24 15:58:42.250363-05	2018-12-25 11:51:20.116298-05	rosanna	1042	H&M	hoodie	xudi zel	25.00	35.00	0.00	0	1		f	f
+2018-12-25 05:56:34.878562-05	2018-12-25 05:56:34.87859-05	rosanna	1252	GINATRICOT	None	sammy roz	18.00	42.00	4.00	0	1		f	f
+2018-12-25 05:57:08.053695-05	2018-12-25 05:57:08.053722-05	rosanna	1253	GINATRICOT	None	tekla los	22.00	42.00	2.00	0	1		f	f
+2018-12-25 05:57:37.647371-05	2018-12-25 05:57:37.647399-05	rosanna	1254	GINATRICOT	None	tekla los	22.00	42.00	2.00	0	1		f	f
+2018-12-25 05:58:03.584138-05	2018-12-25 05:58:03.584165-05	rosanna	1255	GINATRICOT	None	tekla los	22.00	42.00	2.00	0	1		f	f
+2018-12-25 05:58:30.029928-05	2018-12-25 05:58:30.029959-05	rosanna	1256	GINATRICOT	None	penny	18.00	42.00	2.00	0	1		f	f
+2018-12-25 05:58:56.704636-05	2018-12-25 05:58:56.704669-05	rosanna	1257	GINATRICOT	None	penny	18.00	42.00	2.00	0	1		f	f
+2018-12-25 05:59:34.043387-05	2018-12-25 05:59:34.043415-05	rosanna	1258	GINATRICOT	skirt	trinny yubka	22.00	42.00	3.00	0	1		f	f
+2018-12-25 06:00:29.055558-05	2018-12-25 06:00:29.055587-05	rosanna	1260	GINATRICOT	skirt	trinny yubka	22.00	42.00	3.00	0	1		f	f
+2018-12-25 06:01:02.664704-05	2018-12-25 06:01:02.664732-05	rosanna	1261	GINATRICOT	None	ginger rub	22.00	44.00	2.00	0	1		f	f
+2018-12-25 06:01:29.380227-05	2018-12-25 06:01:29.380255-05	rosanna	1262	GINATRICOT	None	vilma rub	22.00	44.00	2.00	0	1		f	f
+2018-12-25 06:01:54.301917-05	2018-12-25 06:01:54.301948-05	rosanna	1263	GINATRICOT	None	nahla	22.00	44.00	2.00	0	1		f	f
+2018-12-25 06:02:20.151152-05	2018-12-25 06:02:20.151182-05	rosanna	1265	GINATRICOT	None	bel sif rub bez birki	22.00	44.00	2.00	0	1		f	f
+2018-12-25 06:02:46.828144-05	2018-12-25 06:02:46.828171-05	rosanna	1266	GINATRICOT	None	claudette rub	22.00	44.00	2.00	0	1		f	f
+2018-12-25 06:03:59.865271-05	2018-12-25 06:03:59.865299-05	rosanna	1300	H&M	jacket	kurtka oranj	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:04:25.152112-05	2018-12-25 06:04:25.152143-05	rosanna	1301	H&M	jacket	kurtka oranj	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:04:52.748675-05	2018-12-25 06:04:52.748702-05	rosanna	1302	H&M	jacket	kurtka oranj	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:05:22.470492-05	2018-12-25 06:05:22.47052-05	rosanna	1303	H&M	jacket	kurtka oranj	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:06:26.06085-05	2018-12-25 06:06:26.060914-05	rosanna	1304	H&M	jacket	kurtka gol	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:06:55.502963-05	2018-12-25 06:06:55.503003-05	rosanna	1305	H&M	jacket	kurtka gol	55.00	110.00	15.00	0	1		f	f
+2018-12-25 06:07:40.265564-05	2018-12-25 06:07:40.265592-05	rosanna	1306	H&M	jacket	kurtka roz	60.00	95.00	10.00	0	1		f	f
+2018-12-25 06:08:13.254139-05	2018-12-25 06:08:13.254167-05	rosanna	1307	H&M	jacket	kurtka koj bordo	55.00	110.00	10.00	0	1		f	f
+2018-12-25 06:10:03.997565-05	2018-12-25 06:10:03.997595-05	rosanna	1310	H&M	sweater	sviter krasniy	40.00	64.00	6.00	0	1		f	f
+2018-12-25 06:10:39.432574-05	2018-12-25 06:10:39.432602-05	rosanna	1311	H&M	sweater	sviter krasniy	40.00	64.00	6.00	0	1		f	f
+2018-12-25 06:11:44.531633-05	2018-12-25 06:11:44.531662-05	rosanna	1312	H&M	sweater	sviter seriy	12.00	42.00	4.00	0	1		f	f
+2018-12-25 06:12:27.494227-05	2018-12-25 06:12:27.494255-05	rosanna	1313	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:13:12.765601-05	2018-12-25 06:13:12.765628-05	rosanna	1314	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:13:36.099841-05	2018-12-25 06:13:36.099899-05	rosanna	1315	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:15:59.718675-05	2018-12-25 06:15:59.718704-05	rosanna	1316	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:16:32.039562-05	2018-12-25 06:16:32.039589-05	rosanna	1317	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:17:13.639664-05	2018-12-25 06:17:13.639695-05	rosanna	1318	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:17:45.760908-05	2018-12-25 06:17:45.760941-05	rosanna	1319	H&M	Cardigan	kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:19:23.961345-05	2018-12-25 06:19:23.961373-05	rosanna	1321	H&M	shirt	rubashka v gorox	25.00	52.00	7.00	0	1		f	f
+2018-12-25 06:18:27.298571-05	2018-12-25 06:19:37.069353-05	rosanna	1320	H&M	shirt	rubashka gorox	25.00	52.00	7.00	0	1		f	f
+2018-12-25 06:20:21.990598-05	2018-12-25 06:20:21.990632-05	rosanna	1322	H&M	blouse	bel kofta	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:20:53.808023-05	2018-12-25 06:20:53.808058-05	rosanna	1323	H&M	blouse	bel kofta	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:21:26.860393-05	2018-12-25 06:21:26.86042-05	rosanna	1324	H&M	blouse	bel kofta	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:21:57.581384-05	2018-12-25 06:21:57.581412-05	rosanna	1325	H&M	blouse	bel kofta bez ruk	20.00	38.00	2.00	0	1		f	f
+2018-12-25 06:22:24.529678-05	2018-12-25 06:22:24.529706-05	rosanna	1326	H&M	blouse	bel kofta bez ruk	20.00	38.00	2.00	0	1		f	f
+2018-12-25 06:22:48.798604-05	2018-12-25 06:22:48.798631-05	rosanna	1327	H&M	blouse	bel kofta bez ruk	20.00	38.00	2.00	0	1		f	f
+2018-12-25 06:23:38.507598-05	2018-12-25 06:23:38.507626-05	rosanna	1328	H&M	blouse	cer velur kofta	30.00	58.00	2.00	0	1		f	f
+2018-12-25 06:24:35.445634-05	2018-12-25 06:24:35.445662-05	rosanna	1330	H&M	dress	velur plat	30.00	60.00	4.00	0	1		f	f
+2018-12-25 06:25:37.10831-05	2018-12-25 06:25:37.108337-05	rosanna	1331	H&M	dress	velur plat	30.00	60.00	4.00	0	1		f	f
+2018-12-25 06:26:08.350285-05	2018-12-25 06:26:08.350313-05	rosanna	1332	H&M	blouse	cer kofta	25.00	52.00	3.00	0	1		f	f
+2018-12-25 06:26:33.142991-05	2018-12-25 06:26:33.143034-05	rosanna	1333	H&M	blouse	cer kofta	25.00	52.00	3.00	0	1		f	f
+2018-12-25 06:26:55.106505-05	2018-12-25 06:26:55.106534-05	rosanna	1334	H&M	blouse	cer kofta	25.00	52.00	3.00	0	1		f	f
+2018-12-25 06:27:36.923013-05	2018-12-25 06:27:36.92304-05	rosanna	1335	H&M	blouse	cer kofta	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:28:34.442061-05	2018-12-25 06:28:34.44209-05	rosanna	1337	H&M	sweater	cer djemper	18.00	64.00	6.00	0	1		f	f
+2018-12-25 06:29:04.200147-05	2018-12-25 06:29:04.200175-05	rosanna	1338	H&M	sweater	ajurnaja vodolazka	36.00	62.00	4.00	0	1		f	f
+2018-12-25 06:29:29.165662-05	2018-12-25 06:29:29.16569-05	rosanna	1339	H&M	sweater	ajurnaja vodolazka	36.00	62.00	4.00	0	1		f	f
+2018-12-25 06:30:08.382056-05	2018-12-25 06:30:08.382084-05	rosanna	1340	H&M	shirt	cer maika s ajur rukovom	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:30:30.356297-05	2018-12-25 06:30:30.356325-05	rosanna	1341	H&M	shirt	cer maika s ajur rukovom	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:30:49.4457-05	2018-12-25 06:30:49.445727-05	rosanna	1342	H&M	shirt	cer maika s ajur rukovom	18.00	36.00	2.00	0	1		f	f
+2018-12-25 06:31:22.894033-05	2018-12-25 06:31:22.894061-05	rosanna	1344	H&M	dress	cer platie ajurnoe	50.00	90.00	6.00	0	1		f	f
+2018-12-25 06:31:48.838778-05	2018-12-25 06:31:48.838806-05	rosanna	1345	H&M	dress	cer platie ajurnoe	50.00	90.00	6.00	0	1		f	f
+2018-12-25 06:32:34.228942-05	2018-12-25 06:32:34.228977-05	rosanna	1346	H&M	Cardigan	cer kardigan	27.00	52.00	4.00	0	1		f	f
+2018-12-25 06:33:21.071577-05	2018-12-25 06:33:21.071605-05	rosanna	1347	HM	None	belaja raspashenka	25.00	52.00	4.00	0	1		f	f
+2018-12-25 06:33:43.776749-05	2018-12-25 06:33:43.776777-05	rosanna	1348	H&M	None	belaja raspashenka	25.00	52.00	4.00	0	1		f	f
+2018-12-25 06:34:07.689462-05	2018-12-25 06:34:07.689494-05	rosanna	1349	H&M	dress	platye turkiz	50.00	72.00	4.00	0	1		f	f
+2018-12-25 06:34:30.29749-05	2018-12-25 06:34:30.29752-05	rosanna	1350	H&M	dress	platye turkiz	50.00	72.00	4.00	0	1		f	f
+2018-12-25 06:35:33.830171-05	2018-12-25 06:35:33.830201-05	rosanna	1351	H&M	dress	zel dlinnoe  platie	60.00	120.00	10.00	0	1		f	f
+2018-12-25 06:35:59.215336-05	2018-12-25 06:35:59.215364-05	rosanna	1352	H&M	dress	zel dlinnoe  platie	60.00	120.00	10.00	0	1		f	f
+2018-12-25 06:36:40.201698-05	2018-12-25 06:36:40.201725-05	rosanna	1355	H&M	jacket	bel pidjak	45.00	92.00	4.00	0	1		f	f
+2018-12-25 06:37:11.633663-05	2018-12-25 06:37:11.63369-05	rosanna	1356	H&M	jacket	bel pidjak	45.00	92.00	4.00	0	1		f	f
+2018-12-25 06:37:40.292779-05	2018-12-25 06:37:40.292807-05	rosanna	1357	H&M	jacket	bel pidjak	45.00	92.00	4.00	0	1		f	f
+2018-12-25 06:38:24.663405-05	2018-12-25 06:38:24.663433-05	rosanna	1358	H&M	jacket	bel pidjak	45.00	92.00	4.00	0	1		f	f
+2018-12-25 06:38:50.329309-05	2018-12-25 06:38:50.329337-05	rosanna	1359	H&M	blouse	golub kofta	25.00	52.00	4.00	0	1		f	f
+2018-12-25 06:39:17.662267-05	2018-12-25 06:39:17.662295-05	rosanna	1360	H&M	blouse	golub kofta	25.00	52.00	4.00	0	1		f	f
+2018-12-25 06:39:44.688854-05	2018-12-25 06:39:44.688916-05	rosanna	1361	H&M	None	xaki bez rukavov	18.00	36.00	3.00	0	1		f	f
+2018-12-25 06:40:10.801791-05	2018-12-25 06:40:10.801818-05	rosanna	1362	H&M	None	xaki bez rukavov	22.00	42.00	4.00	0	1		f	f
+2018-12-25 06:40:50.060392-05	2018-12-25 06:40:50.060419-05	rosanna	1365	H&M	blouse	dlinnaya bluza	15.00	32.00	4.00	0	1		f	f
+2018-12-25 06:41:21.824152-05	2018-12-25 06:41:21.82418-05	rosanna	1366	H&M	None	golub raspashonka	25.00	52.00	4.00	0	1		f	f
+2018-12-25 06:09:01.063161-05	2018-12-25 11:30:55.497416-05	rosanna	1308	H&M	sweater	sviter	25.00	38.00	0.00	0	1		f	f
+2018-12-25 06:09:32.579585-05	2018-12-25 11:31:27.736157-05	rosanna	1309	H&M	sweater	sviter	25.00	38.00	3.00	0	1		f	f
+2018-12-25 06:42:39.498624-05	2018-12-25 06:42:39.498651-05	rosanna	1367	H&M	coat	krasnoe polupalto	55.00	98.00	8.00	0	1		f	f
+2018-12-25 06:43:03.634577-05	2018-12-25 06:43:03.634606-05	rosanna	1368	H&M	coat	krasnoe polupalto	55.00	98.00	8.00	0	1		f	f
+2018-12-25 06:43:38.354762-05	2018-12-25 06:43:38.35479-05	rosanna	1369	H&M	coat	bej polupalto	55.00	98.00	8.00	0	1		f	f
+2018-12-25 06:44:12.88548-05	2018-12-25 06:44:12.885508-05	rosanna	1353	H&M	jacket	golub pidjak	50.00	90.00	2.00	0	1		f	f
+2018-12-25 06:44:41.795956-05	2018-12-25 06:44:41.795991-05	rosanna	1354	H&M	jacket	golub pidjak	50.00	90.00	2.00	0	1		f	f
+2018-12-25 06:45:19.735105-05	2018-12-25 06:45:19.735133-05	rosanna	1363	H&M	shirt	sel platie rubashka	60.00	78.00	6.00	0	1		f	f
+2018-12-25 06:45:52.539918-05	2018-12-25 06:45:52.539949-05	rosanna	1364	H&M	None	sel platie rubashka	60.00	78.00	6.00	0	1		f	f
+2018-12-25 06:46:56.26141-05	2018-12-25 06:46:56.261438-05	rosanna	1370	H&M	jeans	xaki djins	55.00	82.00	3.00	0	1		f	f
+2018-12-25 06:47:32.524002-05	2018-12-25 06:47:32.524031-05	rosanna	1371	H&M	Jeans	xaki djins	55.00	82.00	3.00	0	1		f	f
+2018-12-25 06:48:00.23876-05	2018-12-25 06:48:00.238788-05	rosanna	1372	H&M	dress	rozovoye platye	55.00	95.00	10.00	0	1		f	f
+2018-12-25 06:48:29.412142-05	2018-12-25 06:48:29.412172-05	rosanna	1373	H&M	dress	rozovoye platye	55.00	95.00	10.00	0	1		f	f
+2018-12-25 06:49:34.6361-05	2018-12-25 06:49:34.636128-05	rosanna	1375	H&M	shirt	cernaya mayka	22.00	37.00	5.00	0	1		f	f
+2018-12-25 06:50:03.543765-05	2018-12-25 06:50:03.543793-05	rosanna	1376	H&M	shirt	rubashka zvezda	25.00	46.00	2.00	0	1		f	f
+2018-12-25 06:50:29.498604-05	2018-12-25 06:50:29.498633-05	rosanna	1377	H&M	shirt	rubashka zvezda	25.00	46.00	2.00	0	1		f	f
+2018-12-25 06:51:00.935352-05	2018-12-25 06:51:00.935379-05	rosanna	1378	H&M	jacket	zelen kurtka	55.00	92.00	5.00	0	1		f	f
+2018-12-25 06:51:42.47446-05	2018-12-25 06:51:42.474487-05	rosanna	1379	H&M	jacket	zelen kurtka	55.00	92.00	5.00	0	1		f	f
+2018-12-25 06:52:07.505816-05	2018-12-25 06:52:07.505844-05	rosanna	1380	H&M	jacket	bej kurtka	60.00	92.00	5.00	0	1		f	f
+2018-12-25 06:52:54.316437-05	2018-12-25 06:52:54.316465-05	rosanna	1381	H&M	pants	cernie bruki s jabo	40.00	67.00	5.00	0	1		f	f
+2018-12-25 06:53:16.811131-05	2018-12-25 06:53:16.811159-05	rosanna	1382	H&M	pants	cernie bruki s jabo	40.00	67.00	5.00	0	1		f	f
+2018-12-25 06:53:44.132027-05	2018-12-25 06:53:44.132055-05	rosanna	1383	H&M	pants	bruki xaki	25.00	48.00	2.00	0	1		f	f
+2018-12-25 06:54:26.568774-05	2018-12-25 06:54:26.568802-05	rosanna	1384	H&M	pants	bruki xaki	25.00	48.00	2.00	0	1		f	f
+2018-12-25 06:55:30.241171-05	2018-12-25 06:55:30.2412-05	rosanna	1385	H&M	pants	cernie bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:55:54.054074-05	2018-12-25 06:55:54.054103-05	rosanna	1386	H&M	pants	cernie bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:56:18.289752-05	2018-12-25 06:56:18.289781-05	rosanna	1387	H&M	pants	cernie bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:56:39.842284-05	2018-12-25 06:56:39.842312-05	rosanna	1388	H&M	pants	cernie bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:57:20.005266-05	2018-12-25 06:57:20.005295-05	rosanna	1390	H&M	pants	seriye bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:57:45.063822-05	2018-12-25 06:57:45.063849-05	rosanna	1391	H&M	pants	seriye bruki na poyase	60.00	78.00	4.00	0	1		f	f
+2018-12-25 06:58:46.281826-05	2018-12-25 06:58:46.281857-05	rosanna	1392	H&M	jeans	bruki-djinsi	30.00	52.00	4.00	0	1		f	f
+2018-12-25 06:24:06.522649-05	2018-12-25 06:59:17.432854-05	rosanna	1329	H&M	blouse	cel v cevt kofta	30.00	59.00	0.00	0	1		t	f
+2018-12-25 07:00:28.681351-05	2018-12-25 07:00:28.681396-05	rosanna	1393	H&M	jeans	bruki-djinsi	30.00	52.00	4.00	0	1		f	f
+2018-12-25 07:53:46.299709-05	2018-12-25 07:53:46.299737-05	rosanna	1394	H&M	jeans	bruki-djinsi	30.00	52.00	4.00	0	1		f	f
+2018-12-25 07:54:10.473421-05	2018-12-25 07:54:10.47345-05	rosanna	1395	H&M	Jeans	bruki-djinsi	30.00	52.00	4.00	0	1		f	f
+2018-12-25 07:54:36.986217-05	2018-12-25 07:54:36.986245-05	rosanna	1396	H&M	pants	beliye bruki	40.00	52.00	0.00	0	1		f	f
+2018-12-25 07:55:07.31757-05	2018-12-25 07:55:07.317598-05	rosanna	1397	ONLY	shirt	mayka cernaya	25.00	42.00	4.00	0	1		f	f
+2018-12-25 07:55:44.229478-05	2018-12-25 07:55:44.229508-05	rosanna	1398	ONLY	shirt	mayka cernaya	25.00	42.00	4.00	0	1		f	f
+2018-12-25 07:56:40.479368-05	2018-12-25 07:56:40.479395-05	rosanna	1399	ONLY	shirt	mayka cernaya	25.00	42.00	4.00	0	1		f	f
+2018-12-25 07:57:14.893002-05	2018-12-25 07:57:14.89303-05	rosanna	1400	ONLY	sweater	sviter s bleskom	40.00	65.00	0.00	0	1		f	f
+2018-12-25 07:57:56.846855-05	2018-12-25 07:57:56.846918-05	rosanna	1401	ONLY	sweater	sviter s bleskom	40.00	65.00	0.00	0	1		f	f
+2018-12-25 07:58:20.904963-05	2018-12-25 07:58:20.904991-05	rosanna	1402	ONLY	Cardigan	kardigan	38.00	54.00	2.00	0	1		f	f
+2018-12-25 07:58:43.171752-05	2018-12-25 07:58:43.171781-05	rosanna	1403	ONLY	Cardigan	kardigan	38.00	54.00	2.00	0	1		f	f
+2018-12-25 07:59:06.518804-05	2018-12-25 07:59:06.518832-05	rosanna	1404	ONLY	Cardigan	kardigan	38.00	54.00	2.00	0	1		f	f
+2018-12-25 07:59:25.325281-05	2018-12-25 07:59:25.325312-05	rosanna	1405	ONLY	Cardigan	kardigan	38.00	54.00	2.00	0	1		f	f
+2018-12-25 07:59:54.154197-05	2018-12-25 07:59:54.154227-05	rosanna	1406	ONLY	sweater	rozoviy sviter	30.00	45.00	0.00	0	1		f	f
+2018-12-25 08:00:44.587418-05	2018-12-25 08:00:44.587445-05	rosanna	1407	ONLY	sweater	rozoviy sviter	30.00	45.00	0.00	0	1		f	f
+2018-12-25 08:01:06.891851-05	2018-12-25 08:01:06.891925-05	rosanna	1408	GINATRICOT	shirt	rubashka shokolad	20.00	44.00	2.00	0	1		f	f
+2018-12-25 08:01:51.454862-05	2018-12-25 08:01:51.454926-05	rosanna	1501	TUR	blouse	belaya kofta s rukovami	22.00	47.00	5.00	0	1		f	f
+2018-12-25 08:02:25.035572-05	2018-12-25 08:02:25.0356-05	rosanna	1502	TUR	blouse	belaya kofta s rukovami	22.00	47.00	5.00	0	1		f	f
+2018-12-25 08:02:47.583063-05	2018-12-25 08:02:47.583091-05	rosanna	1503	TUR	blouse	belaya kofta s rukovami	22.00	47.00	5.00	0	1		f	f
+2018-12-25 08:03:20.838341-05	2018-12-25 08:03:20.838369-05	rosanna	1505	TUR	blouse	sinaya kofta	22.00	47.00	3.00	0	1		f	f
+2018-12-25 08:03:40.6122-05	2018-12-25 08:03:40.612228-05	rosanna	1506	TUR	blouse	sinaya kofta	22.00	47.00	3.00	0	1		f	f
+2018-12-25 08:03:59.990329-05	2018-12-25 08:03:59.99036-05	rosanna	1507	TUR	blouse	sinaya kofta	22.00	47.00	3.00	0	1		f	f
+2018-12-25 08:04:20.553469-05	2018-12-25 08:04:20.553497-05	rosanna	1508	TUR	blouse	sinaya kofta	22.00	47.00	3.00	0	1		f	f
+2018-12-25 08:04:56.374287-05	2018-12-25 08:04:56.374323-05	rosanna	1509	TUR	none	legenci	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:05:24.372956-05	2018-12-25 08:05:24.372993-05	rosanna	1510	TUR	None	legenci	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:05:52.683944-05	2018-12-25 08:05:52.683974-05	rosanna	1511	TUR	None	legenci	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:10:01.667329-05	2018-12-25 08:10:01.667357-05	rosanna	1512	TUR	None	legenci	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:10:31.655578-05	2018-12-25 08:10:31.655608-05	rosanna	1513	TUR	blouse	oranjev kofta	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:10:58.805843-05	2018-12-25 08:10:58.80591-05	rosanna	1514	TUR	blouse	oranjev kofta	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:11:20.982478-05	2018-12-25 08:11:20.982506-05	rosanna	1515	TUR	blouse	oranjev kofta	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:12:01.67396-05	2018-12-25 08:12:01.673989-05	rosanna	1516	TUR	pants	bruki seriye	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:12:55.80969-05	2018-12-25 08:12:55.809722-05	rosanna	1517	TUR	pants	bruki seriye	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:13:24.419689-05	2018-12-25 08:13:24.419719-05	rosanna	1518	TUR	pants	bruki seriye	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:13:47.356089-05	2018-12-25 08:13:47.35612-05	rosanna	1519	TUR	pants	bruki seriye	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:14:14.988563-05	2018-12-25 08:14:14.988591-05	rosanna	1520	TUR	skirt	yubka	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:14:40.284712-05	2018-12-25 08:14:40.284744-05	rosanna	1521	TUR	skirt	yubka	22.00	46.00	42.00	0	1		f	f
+2018-12-25 08:15:03.145557-05	2018-12-25 08:15:03.145586-05	rosanna	1522	TUR	skirt	yubka	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:15:29.939589-05	2018-12-25 08:15:29.939617-05	rosanna	1523	TUR	skirt	yubka	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:16:09.019834-05	2018-12-25 08:16:09.019862-05	rosanna	1524	TUR	skirt	yubka seraya	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:16:41.873298-05	2018-12-25 08:16:41.873326-05	rosanna	1525	TUR	skirt	yubka seraya	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:17:08.305377-05	2018-12-25 08:17:08.305406-05	rosanna	1526	TUR	skirt	yubka seraya	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:17:44.953343-05	2018-12-25 08:17:44.953376-05	rosanna	1527	TUR	skirt	yubka seraya	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:18:23.226241-05	2018-12-25 08:18:23.226278-05	rosanna	1528	TUR	pants	bruki s polosoy	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:18:56.355122-05	2018-12-25 08:18:56.35515-05	rosanna	1529	TUR	pants	bruki s polosoy	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:19:18.774764-05	2018-12-25 08:19:18.774795-05	rosanna	1530	TUR	pants	bruki s polosoy	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:19:58.687982-05	2018-12-25 08:19:58.688011-05	rosanna	1531	TUR	pants	bruki s polosoy	22.00	46.00	4.00	0	1		f	f
+2018-12-25 08:20:33.363738-05	2018-12-25 08:20:33.363766-05	rosanna	1533	TUR	jacket	pidjak	35.00	73.00	5.00	0	1		f	f
+2018-12-25 08:20:55.826744-05	2018-12-25 08:20:55.826773-05	rosanna	1534	TUR	jacket	pidjak	35.00	73.00	5.00	0	1		f	f
+2018-12-25 08:21:27.926687-05	2018-12-25 08:21:27.926718-05	rosanna	1536	TUR	jacket	bolero	50.00	76.00	4.00	0	1		f	f
+2018-12-25 08:21:57.657385-05	2018-12-25 08:21:57.657417-05	rosanna	1538	TUR	jacket	bolero	50.00	76.00	4.00	0	1		f	f
+2018-12-25 08:22:18.878053-05	2018-12-25 08:22:18.878081-05	rosanna	1539	TUR	jacket	bolero	50.00	76.00	4.00	0	1		f	f
+2018-12-25 08:23:21.836257-05	2018-12-25 08:23:21.836285-05	rosanna	1540	TUR	coat	palto kapushon	55.00	110.00	0.00	0	1		f	f
+2018-12-25 08:25:04.360012-05	2018-12-25 08:25:04.360052-05	rosanna	1541	TUR	coat	palto kapushon	55.00	110.00	0.00	0	1		f	f
+2018-12-25 08:26:29.912356-05	2018-12-25 08:26:29.912384-05	rosanna	1542	TUR	coat	palto kapushon	55.00	110.00	0.00	0	1		f	f
+2018-12-25 08:27:00.728024-05	2018-12-25 08:27:00.728052-05	rosanna	1543	TUR	coat	palto kapushon	55.00	110.00	0.00	0	1		f	f
+2018-12-25 08:29:12.145172-05	2018-12-25 08:29:12.145201-05	rosanna	1544	TUR	coat	palto sherst	55.00	155.00	15.00	0	1		f	f
+2018-12-25 08:29:47.0627-05	2018-12-25 08:29:47.062728-05	rosanna	1545	TUR	coat	palto sherst	55.00	155.00	15.00	0	1		f	f
+2018-12-25 08:30:19.517321-05	2018-12-25 08:30:19.517349-05	rosanna	1546	TUR	coat	palto sherst	55.00	155.00	15.00	0	1		f	f
+2018-12-25 08:30:52.832138-05	2018-12-25 08:30:52.832165-05	rosanna	1547	TUR	coat	palto sherst	55.00	155.00	15.00	0	1		f	f
+2018-12-25 08:31:43.349071-05	2018-12-25 08:31:43.349099-05	rosanna	1548	TUR	dress	platie dlinnoe s printom	70.00	145.00	5.00	0	1		f	f
+2018-12-25 08:32:05.332494-05	2018-12-25 08:32:05.332522-05	rosanna	1549	TUR	dress	platie dlinnoe s printom	70.00	145.00	5.00	0	1		f	f
+2018-12-25 08:32:27.397366-05	2018-12-25 08:32:27.397393-05	rosanna	1550	TUR	dress	platie dlinnoe s printom	70.00	145.00	5.00	0	1		f	f
+2018-12-25 08:32:47.019424-05	2018-12-25 08:32:47.019452-05	rosanna	1551	TUR	dress	platie dlinnoe s printom	70.00	145.00	5.00	0	1		f	f
+2018-12-25 08:33:35.839771-05	2018-12-25 08:33:35.839799-05	rosanna	1552	TUR	skirt	yubka na poyase	15.00	36.00	4.00	0	1		f	f
+2018-12-25 08:34:07.434092-05	2018-12-25 08:34:07.43412-05	rosanna	1553	TUR	skirt	yubka na poyase	15.00	36.00	4.00	0	1		f	f
+2018-12-25 08:34:39.640738-05	2018-12-25 08:34:39.640767-05	rosanna	1554	TUR	skirt	yubka na poyase	15.00	36.00	4.00	0	1		f	f
+2018-12-25 08:35:04.818247-05	2018-12-25 08:35:04.818274-05	rosanna	1555	TUR	skirt	yubka na poyase	15.00	36.00	4.00	0	1		f	f
+2018-12-25 08:35:37.749838-05	2018-12-25 08:35:37.749866-05	rosanna	1556	TUR	blouse	kofta belaya bez rukovov	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:37:34.825657-05	2018-12-25 08:37:34.825685-05	rosanna	1558	TUR	blouse	kofta belaya bez rukovov	17.00	38.00	4.00	0	1		f	f
+2018-12-25 08:38:17.933357-05	2018-12-25 08:38:17.933389-05	rosanna	1560	TUR	pants	bruki	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:39:35.02181-05	2018-12-25 08:39:35.021841-05	rosanna	1561	TUR	pants	bruki	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:40:02.300949-05	2018-12-25 08:40:02.300979-05	rosanna	1562	TUR	pants	bruki	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:40:59.205413-05	2018-12-25 08:40:59.205446-05	rosanna	1563	TUR	pants	bruki	20.00	46.00	4.00	0	1		f	f
+2018-12-25 08:41:37.115794-05	2018-12-25 08:41:37.115823-05	rosanna	1565	TUR	dress	platye vellur	50.00	110.00	10.00	0	1		f	f
+2018-12-25 08:42:02.144094-05	2018-12-25 08:42:02.144124-05	rosanna	1566	TUR	dress	platye vellur	50.00	110.00	10.00	0	1		f	f
+2018-12-25 08:42:34.932006-05	2018-12-25 08:42:34.932034-05	rosanna	1567	TUR	dress	platye vellur	50.00	110.00	10.00	0	1		f	f
+2018-12-25 08:50:03.858998-05	2018-12-25 08:50:03.859026-05	rosanna	1574	CHINA	bag	klatch cherniy	13.00	20.00	0.00	0	1		f	f
+2018-12-25 08:50:41.308615-05	2018-12-25 08:50:41.308645-05	rosanna	1575	CHINA	bag	klatch zolotoi	13.00	20.00	0.00	0	1		f	f
+2018-12-25 08:51:08.361714-05	2018-12-25 08:51:08.361743-05	rosanna	1576	CHINA	bag	klatch shokolad	13.00	20.00	0.00	0	1		f	f
+2018-12-25 08:52:56.388004-05	2018-12-25 08:52:56.388032-05	rosanna	1577	CHINA	accessories	poyas G	13.00	25.00	0.00	0	1		f	f
+2018-12-25 08:53:27.407157-05	2018-12-25 08:53:27.407185-05	rosanna	1578	CHINA	accessories	poyas G	13.00	25.00	0.00	0	1		f	f
+2018-12-25 08:54:05.85517-05	2018-12-25 08:54:05.855198-05	rosanna	1579	CHINA	accessories	poyas G	13.00	25.00	0.00	0	1		f	f
+2018-12-24 10:02:28.17755-05	2018-12-25 10:29:45.457695-05	rosanna	258	GINATRICOT	Sweater	ROZOVIY SVITER S XAMUTOM	10.00	30.00	0.00	0	3		f	f
+2018-12-24 10:51:30.068285-05	2018-12-25 10:45:11.049635-05	rosanna	312	SEBAGO	shirt	EMMIE TOP	10.00	21.00	0.00	0	1		f	f
+2018-12-24 11:25:30.381607-05	2018-12-25 11:10:00.021353-05	rosanna	918067	GINATRICOT	None	malva bag	18.00	40.00	0.00	0	1		f	f
+2018-12-24 17:27:23.986286-05	2018-12-25 11:12:54.814224-05	rosanna	1216	LINDEX	bag	sumka korichnevaya	22.00	35.00	0.00	0	1		f	f
+2018-12-25 08:47:33.604986-05	2018-12-25 11:42:22.533011-05	rosanna	1571	TUR	sweater	sviter oranj	17.00	30.00	0.00	0	1		f	f
+2018-12-25 08:48:04.403287-05	2018-12-25 11:42:43.283211-05	rosanna	1572	TUR	sweater	sviter oranj	17.00	30.00	0.00	0	1		f	f
+2018-12-25 08:49:11.662444-05	2018-12-25 11:43:02.281506-05	rosanna	1573	TUR	sweater	sviter oranj	17.00	30.00	0.00	0	1		f	f
+2018-12-25 11:47:55.566713-05	2018-12-25 11:47:55.566748-05	rosanna	206	HM	кофта	караловое	20.00	35.00	0.00	M	1		f	f
+2018-12-25 08:44:19.47022-05	2018-12-25 12:06:22.460128-05	rosanna	1568	TUR	dress	platie  zelenoe s valanami	57.00	98.00	0.00	0	1		f	f
+2018-12-25 08:44:43.212052-05	2018-12-25 12:06:47.854955-05	rosanna	1569	TUR	dress	platie  zelenoe s valanami	57.00	98.00	0.00	0	1		f	f
+2018-12-25 08:46:59.234547-05	2018-12-25 12:07:13.403714-05	rosanna	1570	TUR	dress	platie  zelenoe s valanami	57.00	98.00	0.00	0	1		f	f
+2018-12-28 07:24:41.019906-05	2018-12-28 07:25:49.014406-05	rosanna	21611	HM	бруки	сафари (шала)	12.00	45.00	0.00	0	1		f	t
+2018-12-28 09:51:43.186987-05	2018-12-28 09:51:43.187015-05	rosanna	259	gina	кофта	CERNAYA SHIFONOVYA BLUZKA S VA	20.00	48.00	0.00	0	2		f	f
+\.
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: client_client_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY client_client
+    ADD CONSTRAINT client_client_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: expence_expence_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY expence_expence
+    ADD CONSTRAINT expence_expence_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: money_money_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY money_money
+    ADD CONSTRAINT money_money_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stock_clothes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY stock_clothes
+    ADD CONSTRAINT stock_clothes_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
