@@ -20,6 +20,7 @@
                                 <tr>
                                     <th>Код</th>
                                     <th>Бренд</th>
+                                    <th>Описание</th>
                                     <th>Продано</th>
                                     <th>Цена продажи</th>
                                     <th>Размер</th>
@@ -32,6 +33,7 @@
                                 <tr class="row-cursor" title="Click to view this item">
                                     <td><a href="{{ clothes.get_detail }}">{{ clothes.code }}</a></td>
                                     <td>{{ clothes.brand }}</td>
+                                    <td>{{ clothes.description }}</td>
                                     <td>{{ clothes.sold|yesno:"Да,Нет" }}</td>
                                     <td>{{ clothes.selling_price }}</td>
                                     <td>{{ clothes.size }}</td>
