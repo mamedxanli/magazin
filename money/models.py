@@ -8,6 +8,7 @@ class Money(models.Model):
     # Timestamps
     date = models.DateTimeField("Дата")
     amount = models.DecimalField("Продажа за день", decimal_places=2, max_digits=5)
+    cash = models.DecimalField("Остаток в кассе", max_digits=5, decimal_places=2, default=0)
     
     def __str__(self):
         return " {} ".format(self.date)

@@ -12,7 +12,9 @@ class MoneyForm(ModelForm):
     class Meta:
         model = Money
         fields = ['date',
-                  'amount',]
+                  'amount',
+                  'cash',
+                  ]
         widgets = {'date': forms.TextInput(attrs={'placeholder': 'Пример: 2018-12-31'})}
     """    
     def __init__(self, *args, **kwargs):
