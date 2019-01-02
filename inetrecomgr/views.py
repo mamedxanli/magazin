@@ -23,6 +23,7 @@ class HomePage(generic.TemplateView):
         context['clothes_sold']  = Clothes.objects.filter(sold=True)
         context['clothes_stock_amount'] = Clothes.get_amount_in_stock(self)
         context['clothes_stock']  = Clothes.get_number_of_items_in_stock(self)
+        context['money_amount'] = Money.get_money_for_month(self)
         return context
 
 """
