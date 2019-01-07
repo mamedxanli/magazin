@@ -71,8 +71,7 @@ class Clothes(models.Model):
         qs = Clothes.objects.filter(sold='False')
         for item in qs:
             number = number + item.quantity
-        return number 
-
+        return number
 
     class Meta:
         verbose_name_plural = "Clothes"

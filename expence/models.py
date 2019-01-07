@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse, reverse_lazy
+from datetime import datetime
+
 # Create your models here.
 
 class Expence(models.Model):
@@ -35,6 +37,13 @@ class Expence(models.Model):
         """
         class_name = "Расход"
         return class_name
+
+    def get_expence_for_month(self):
+        qs = Expence.objects.filter(date__month = datetime.now().month, date__year = datetime.now().year)
+        expence_amount = 0
+        for item in qs:
+            expence_amount = expence_amount + item.amount
+        return expence_amount
 
     class Meta:
         verbose_name_plural = "Expences"
