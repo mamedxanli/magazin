@@ -40,7 +40,7 @@ class Money(models.Model):
         return class_name
 
     def get_money_for_month(self):
-        qs = Money.objects.filter(date__month = datetime.now().month)
+        qs = Money.objects.filter(date__month = datetime.now().month, date__year = datetime.now().year)
         money_amount = 0
         for item in qs:
             money_amount = money_amount + item.amount
