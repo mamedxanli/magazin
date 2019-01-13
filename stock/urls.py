@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^edit/(?P<pk>\d+)/$', login_required(views.ClothesUpdate.as_view()), name='clothes_edit'),
     url(r'^list$', login_required(views.ClothesList.as_view()), name='clothes_list'),
     url(r'^sold_list$', login_required(views.ClothesSoldList.as_view()), name='clothes_sold_list'),
+    url(r'^loan_list$', login_required(views.ClothesLoanList.as_view()), name='clothes_loan_list'),
     url(r'^delete/(?P<pk>\d+)/$', login_required(views.ClothesDelete.as_view()), name='clothes_delete'),
     url(r'^(?P<pk>\d+)/$', login_required(views.ClothesDetail.as_view()), name='clothes_detail'),
               ]

@@ -74,6 +74,15 @@ class ClothesSoldList(generic.ListView):
         qs = Clothes.objects.filter(sold=True)
         return qs.order_by('code')
 
+class ClothesLoanList(generic.ListView):
+    model = Clothes
+    template_name = 'stock/clothes_loan_list.html'
+    paginate_by = 50
+
+    def get_queryset(self):
+        qs = Clothes.objects.filter(debt=True)
+        return qs.order_by('code')
+
 
 class ClothesDetail(generic.DetailView):
     """
