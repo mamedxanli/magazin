@@ -62,8 +62,8 @@ class ClothesList(generic.ListView):
     paginate_by = 50
 
     def get_queryset(self):
-        qs = Clothes.objects.filter(sold=False)
-        return qs.order_by('code')
+        qs = Clothes.objects.all()
+        return qs.order_by('-code')
 
 class ClothesSoldList(generic.ListView):
     model = Clothes
