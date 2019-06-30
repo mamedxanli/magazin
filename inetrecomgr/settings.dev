@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #Our apps
     'stock',
     'money',
+    'debt',
+    'expence'
     #Search
     'haystack',
     #Files cleanup
