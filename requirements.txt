@@ -7,3 +7,5 @@ elasticsearch==2.4.1
 django-cleanup
 # Webserver for docker to be used by nginx
 gunicorn
+# Django import-export
+django-import-export==1.2.0
