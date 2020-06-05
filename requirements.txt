@@ -1,4 +1,4 @@
-Django==2.0.6
+Django==2.2.13
 psycopg2-binary
 #For search functionality
 django-haystack
